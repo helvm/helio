@@ -6,6 +6,7 @@ module HelVM.Common.Util (
   genericChr,
   (???),
   fromMaybeOrDef,
+  headMaybe,
 ) where
 
 import           Data.Char          hiding (chr)
@@ -44,3 +45,6 @@ infixr 0 ???
 
 fromMaybeOrDef :: Default a => Maybe a -> a
 fromMaybeOrDef = fromMaybe def
+
+headMaybe :: [a] -> Maybe a
+headMaybe = viaNonEmpty head

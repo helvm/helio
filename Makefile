@@ -1,6 +1,6 @@
 .PHONY: all bench build check check-whitespace clean configure exec fast golden haddock hlint hpack install main output repl report run sdist stan stylish test tix update
 
-all: update fast bench
+all: update fast
 
 bench:
 	rm -f helvm-common-benchmark.tix
@@ -29,7 +29,7 @@ exec:
 	make tix
 	cabal new-exec --jobs helvm-common
 
-fast: main report sdist install
+fast: main report sdist
 
 golden:
 	if test -d .output/golden; then rm -r .output/golden; fi
@@ -38,9 +38,7 @@ haddock:
 	cabal new-haddock
 
 hlint:
-	#curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh | sh -s .
-	hlint . --report=hlint.html --timing
-	mv hlint.html docs/reports
+	./hlint.sh
 
 hpack:
 	curl -sSL https://github.com/sol/hpack/raw/main/get-hpack.sh | bash
@@ -59,9 +57,7 @@ repl:
 
 report:
 	make haddock stan hlint
-	mkdir_and_cp() { mkdir -p $(dirname "$2") && cp -r "$1" "$2"}
-	mkdir_and_cp dist-newstyle/build/*/*/*/doc/html/helvm-common docs/reports/doc
-	mkdir_and_cp dist-newstyle/build/*/*/*/hpc/vanilla/html docs/reports/hpc
+	./report.sh
 
 run:
 	make tix
@@ -71,8 +67,7 @@ sdist:
 	cabal sdist
 
 stan:
-	export STAN_USE_DEFAULT_CONFIG=True
-	stan -s --hide-solution report
+	./stan.sh
 	mv stan.html docs/reports
 
 stylish:

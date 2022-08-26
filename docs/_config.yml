@@ -66,10 +66,10 @@ paginate                 : 1
 remote_theme             : helvm/minima
 
 ## jekyll-seo-tag
-title                    : "Haskellish Esoteric Limited Minimal Automaton"
-tagline                  : "Haskellish Esoteric Limited Minimal Automaton Evaluator Interpreter"
+title                    : "Haskellish Esoteric Library Input Output"
+tagline                  : "Haskellish Esoteric Library Input Output"
 description: >-
-  Documentation of Haskellish Esoteric Limited Minimal Automaton - Evaluator and Interpreter for Esoteric Languages implemented in Haskell/Eta
+  Documentation of Haskellish Esoteric Library Input Output
 url                      : "https://helvm.github.io/helvm-common/"
 author:
   name                   : "Kamil Adam"
@@ -119,11 +119,12 @@ edit:
   extention              : md
 
 header_pages:
-  - INSTALL.md
-  - TODO.md
-  - NEWS.md
-  - BUGS.md
-  - FAQ.md
+  - users/INSTALL.md
+  - users/AUTHORS.md
+  - users/THANKS.md
+  - users/TODO.md
+  - users/NEWS.md
+  - users/FAQ.md
 
 minima:
 #  skin: solarized-dark

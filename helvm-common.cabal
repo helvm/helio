@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helvm-common
-version:               0.1.0.0
+version:               0.1.0.1
 
 synopsis:              HelVM Common Library
 description:           Please see the README on GitHub at <https://github.com/helvm/helvm-common#readme>
@@ -9,7 +9,7 @@ homepage:              http://helvm.org/helvm-common/
 bug-reports:           https://github.com/helvm/helvm-common/issues
 
 license:               Apache-2.0
-license-file:          docs/LICENSE-APACHE
+license-file:          docs/license/LICENSE-APACHE
 author:                Kamil Adam
 maintainer:            kamil.adam.zabinski@gmail.com
 copyright:             2020-2022 WriteOnly Developers
@@ -17,7 +17,7 @@ copyright:             2020-2022 WriteOnly Developers
 category:              Language
 build-type:            Simple
 extra-source-files:
-  docs/CHANGELOG.md
+  docs/developers/CHANGELOG.md
   docs/README.md
 
 tested-with:           GHC == 9.2.1
@@ -126,6 +126,7 @@ library
     HelVM.Common.NamedValue
     HelVM.Common.ReadText
     HelVM.Common.SequencesUtil
+    HelVM.Common.SwitchEnum
     HelVM.Common.Util
     HelVM.Common.ZipA
 
@@ -141,7 +142,6 @@ library
     , slist
     , text
     , type-operators
-    , vector
 
   ghc-options:
 
