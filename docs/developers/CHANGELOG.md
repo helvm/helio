@@ -1,5 +1,9 @@
 # 📅 Revision history for HelVM Common
 
+## 0.1.0.2  -- 2022-09-09
+
+* Change name to HelIO
+
 ## 0.1.0.1  -- 2022-09-09
 
 * Upgrade documentations

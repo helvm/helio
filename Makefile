@@ -3,7 +3,7 @@
 all: update fast
 
 bench:
-	rm -f helvm-common-benchmark.tix
+	rm -f helio-benchmark.tix
 	cabal new-bench --jobs -f ghcoptions
 
 build:
@@ -27,7 +27,7 @@ configure:
 
 exec:
 	make tix
-	cabal new-exec --jobs helvm-common
+	cabal new-exec --jobs helio
 
 fast: main report sdist
 
@@ -53,7 +53,7 @@ output:
 	if test -d .output; then rm -r .output; fi
 
 repl:
-	cabal new-repl lib:helvm-common
+	cabal new-repl lib:helio
 
 report:
 	make haddock stan hlint
@@ -61,7 +61,7 @@ report:
 
 run:
 	make tix
-	cabal new-run --jobs helvm-common
+	cabal new-run --jobs helio
 
 sdist:
 	cabal sdist
@@ -78,7 +78,7 @@ test:
 	cabal new-test --jobs --test-show-details=streaming -f ghcoptions
 
 tix:
-	rm -f helvm-common.tix
+	rm -f helio.tix
 
 update:
 	cabal update

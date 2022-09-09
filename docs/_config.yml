@@ -70,7 +70,7 @@ title                    : "Haskellish Esoteric Library Input Output"
 tagline                  : "Haskellish Esoteric Library Input Output"
 description: >-
   Documentation of Haskellish Esoteric Library Input Output
-url                      : "https://helvm.github.io/helvm-common/"
+url                      : "https://helvm.github.io/helio/"
 author:
   name                   : "Kamil Adam"
   email                  : "kamil.adam.zabinski@gmail.com"
@@ -115,7 +115,7 @@ headings_form_titles:
 
 edit:
   enabled                : true
-  url                    : https://github.com/helvm/helvm-common/edit/master/docs
+  url                    : https://github.com/helvm/helio/edit/master/docs
   extention              : md
 
 header_pages:

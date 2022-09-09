@@ -4,6 +4,6 @@ Frequently Asked Questions & Frequently Given Answers.
 
 *We do not have any FAQ now.*
 
-I can ask question by [GitHub](https://github.com/helvm/helvm-common/issues).
+I can ask question by [GitHub](https://github.com/helvm/helio/issues).
 
 ## 🦄 🌈 ❤️ 💛 💚 💙 🤍 🖤

@@ -1,26 +1,26 @@
-![haskell workflow](https://github.com/helvm/helvm-common/actions/workflows/haskell.yml/badge.svg)
-![jekyll workflow](https://github.com/helvm/helvm-common/actions/workflows/jekyll.yml/badge.svg)
+![haskell workflow](https://github.com/helvm/helio/actions/workflows/haskell.yml/badge.svg)
+![jekyll workflow](https://github.com/helvm/helio/actions/workflows/jekyll.yml/badge.svg)
 
-![watchers](https://img.shields.io/github/watchers/helvm/helvm-common?style=social)
-![forks](https://img.shields.io/github/forks/helvm/helvm-common?style=social)
-![stars](https://img.shields.io/github/stars/helvm/helvm-common?style=social)
+![watchers](https://img.shields.io/github/watchers/helvm/helio?style=social)
+![forks](https://img.shields.io/github/forks/helvm/helio?style=social)
+![stars](https://img.shields.io/github/stars/helvm/helio?style=social)
 
-![issues](https://img.shields.io/github/issues/helvm/helvm-common)
-![issues closed](https://img.shields.io/github/issues-closed/helvm/helvm-common)
-![issues pr](https://img.shields.io/github/issues-pr/helvm/helvm-common)
-![issues pr closed](https://img.shields.io/github/issues-pr-closed/helvm/helvm-common)
+![issues](https://img.shields.io/github/issues/helvm/helio)
+![issues closed](https://img.shields.io/github/issues-closed/helvm/helio)
+![issues pr](https://img.shields.io/github/issues-pr/helvm/helio)
+![issues pr closed](https://img.shields.io/github/issues-pr-closed/helvm/helio)
 
-![discussions](https://img.shields.io/github/discussions/helvm/helvm-common)
-![release](https://img.shields.io/github/v/release/helvm/helvm-common)
-![release-date](https://img.shields.io/github/release-date/helvm/helvm-common)
-![tag](https://img.shields.io/github/v/tag/helvm/helvm-common)
-![last-commit](https://img.shields.io/github/last-commit/helvm/helvm-common)
+![discussions](https://img.shields.io/github/discussions/helvm/helio)
+![release](https://img.shields.io/github/v/release/helvm/helio)
+![release-date](https://img.shields.io/github/release-date/helvm/helio)
+![tag](https://img.shields.io/github/v/tag/helvm/helio)
+![last-commit](https://img.shields.io/github/last-commit/helvm/helio)
 
-![languages count](https://img.shields.io/github/languages/count/helvm/helvm-common)
-![languages code size](https://img.shields.io/github/languages/code-size/helvm/helvm-common)
-![repo size](https://img.shields.io/github/repo-size/helvm/helvm-common)
-![downloads](https://img.shields.io/github/downloads/helvm/helvm-common/total)
-![licanse](https://img.shields.io/github/license/helvm/helvm-common)
+![languages count](https://img.shields.io/github/languages/count/helvm/helio)
+![languages code size](https://img.shields.io/github/languages/code-size/helvm/helio)
+![repo size](https://img.shields.io/github/repo-size/helvm/helio)
+![downloads](https://img.shields.io/github/downloads/helvm/helio/total)
+![licanse](https://img.shields.io/github/license/helvm/helio)
 
 # 🚒 🍳 HelIO - Haskellish Esoteric Library Input Output
 
@@ -44,7 +44,7 @@ Common part of **[HelVM](http://helvm.github.io/)**
 ## Reports
 * [hadock](reports/doc/index.html) - A documentation
 * [hlint](reports/hlint.html) - Source code suggestions report
-* [hpc](reports/hpc/helvm-common-test/hpc_index.html) - Haskell program coverage report
+* [hpc](reports/hpc/helio-test/hpc_index.html) - Haskell program coverage report
 * [stan](reports/stan.html) - Haskell STatic ANalyser report
 
 ## 🦄 🌈 ❤️ 💛 💚 💙 🤍 🖤

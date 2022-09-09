@@ -1,0 +1,184 @@
+cabal-version:         2.4
+
+name:                  helio
+version:               0.1.0.2
+
+synopsis:              HelVM Common Library
+description:           Please see the README on GitHub at <https://github.com/helvm/helio#readme>
+homepage:              http://helvm.org/helio/
+bug-reports:           https://github.com/helvm/helio/issues
+
+license:               Apache-2.0
+license-file:          docs/license/LICENSE-APACHE
+author:                Kamil Adam
+maintainer:            kamil.adam.zabinski@gmail.com
+copyright:             2020-2022 WriteOnly Developers
+
+category:              Language
+build-type:            Simple
+extra-source-files:
+  docs/developers/CHANGELOG.md
+  docs/README.md
+
+tested-with:           GHC == 9.2.1
+
+source-repository head
+  type:                git
+  location:            https://github.com/helvm/helio
+
+flag ghcoptions
+  description:         compile with options
+  manual:              True
+  default:             False
+
+common common-options
+  build-depends:
+      base                 <  4.16
+    , relude               == 1.0.0.1
+  mixins:
+      base hiding (Prelude)
+    , relude (Relude as Prelude, Relude.Extra, Data.Text)
+  default-language:    Haskell2010
+  default-extensions:
+    EmptyDataDecls
+    ExistentialQuantification
+    FlexibleContexts
+    FlexibleInstances
+    FunctionalDependencies
+    GADTs
+    GeneralizedNewtypeDeriving
+    InstanceSigs
+    KindSignatures
+    LambdaCase
+    MultiParamTypeClasses
+    MultiWayIf
+    NamedFieldPuns
+--    NoImplicitPrelude
+    OverloadedStrings
+    PartialTypeSignatures
+    PatternGuards
+    PolyKinds
+    RankNTypes
+    RecordWildCards
+    ScopedTypeVariables
+    StandaloneDeriving
+    TupleSections
+    TypeFamilies
+    TypeSynonymInstances
+    ViewPatterns
+--    CPP
+--    TemplateHaskell
+--    ForeignFunctionInterface
+--    MagicHash
+--    UnliftedFFITypes
+    TypeOperators
+--    UnboxedTuples
+--    PackageImports
+--    QuasiQuotes
+--    DeriveAnyClass
+--    DeriveLift
+--    StaticPointers
+    DerivingStrategies
+    ConstraintKinds
+    StrictData
+  if flag(ghcoptions)
+    ghc-options:
+      -Wall
+      -Wcompat
+      -Widentities
+      -Wincomplete-uni-patterns
+      -Wincomplete-record-updates
+      -Wredundant-constraints
+      -Wnoncanonical-monad-instances
+      -fhide-source-paths
+--      -Wmissing-export-lists FIXME
+       -Wpartial-fields
+      -Wmissing-deriving-strategies
+      -fwrite-ide-info
+      -hiedir=.hie
+      -Wunused-packages
+      -fprint-potential-instances
+      -Werror
+
+library
+  import:              common-options
+  hs-source-dirs:      hs/src
+  exposed-modules:
+    HelVM.HelIO.Collections.MapList
+    HelVM.HelIO.Collections.SList
+
+    HelVM.HelIO.Containers.LLIndexSafe
+    HelVM.HelIO.Containers.LLInsertDef
+    HelVM.HelIO.Containers.MTIndexSafe
+    HelVM.HelIO.Containers.MTInsertDef
+    HelVM.HelIO.Containers.Util
+
+    HelVM.HelIO.Control.Control
+    HelVM.HelIO.Control.Message
+    HelVM.HelIO.Control.Logger
+    HelVM.HelIO.Control.Safe
+
+    HelVM.HelIO.Digit.Digitable
+    HelVM.HelIO.Digit.Digits
+    HelVM.HelIO.Digit.ToDigit
+
+    HelVM.HelIO.ListLikeUtil
+    HelVM.HelIO.NamedValue
+    HelVM.HelIO.ReadText
+    HelVM.HelIO.SequencesUtil
+    HelVM.HelIO.SwitchEnum
+    HelVM.HelIO.Util
+    HelVM.HelIO.ZipA
+
+  build-depends:
+      containers           <  0.7
+    , data-default
+    , dlist
+    , ilist
+    , ListLike
+    , mono-traversable
+    , mtl
+    , pretty-simple
+    , slist
+    , text
+    , type-operators
+
+  ghc-options:
+
+test-suite helio-test
+  import:              common-options
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      hs/test
+  main-is:             Main.hs
+  other-modules:
+    Spec
+
+    HelVM.Expectations
+    HelVM.GoldenExpectations
+    HelVM.MonadErrorSpec
+
+    HelVM.HelIO.Collections.MapListSpec
+    HelVM.HelIO.Control.LoggerSpec
+
+    HelVM.HelIO.ListLikeUtilSpec
+
+  build-depends:
+      hspec
+    , hspec-core
+    , hspec-expectations-pretty-diff
+    , hspec-golden
+    , hspec-slow
+
+    , helio
+
+    , dlist
+    , filepath
+    , ListLike
+    , mtl
+    , type-operators
+
+  build-tool-depends:  hspec-discover:hspec-discover == 2.*
+  ghc-options:
+    -threaded
+    -rtsopts
+    -with-rtsopts=-N

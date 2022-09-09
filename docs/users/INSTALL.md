@@ -6,8 +6,8 @@ How to download, test and run.
 
 You need a client of `git`:
 ```bash
-git clone https://github.com/helvm/helvm-common.git
-cd helvm-common
+git clone https://github.com/helvm/helio.git
+cd helio
 ```
 
 ## Compile
