@@ -1,11 +1,11 @@
 module HelVM.HelIO.SwitchEnum where
 
-import qualified Relude.Extra as Extra
+import           HelVM.HelIO.Extra
+
+import qualified Relude.Extra      as Extra
 
 unsafeEnum :: (Bounded e , Enum e) => Int -> e
-unsafeEnum i = (unsafe . Extra.safeToEnum) i where
-  unsafe Nothing  = error $ show i
-  unsafe (Just a) = a
+unsafeEnum = tee fromJustWith Extra.safeToEnum
 
 enumFromBool :: (Bounded e , Enum e) => Bool -> e
 enumFromBool = unsafeEnum . fromEnum

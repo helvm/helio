@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helio
-version:               0.1.0.2
+version:               0.1.1.0
 
 synopsis:              HelVM Common Library
 description:           Please see the README on GitHub at <https://github.com/helvm/helio#readme>
@@ -111,7 +111,7 @@ library
     HelVM.HelIO.Containers.LLInsertDef
     HelVM.HelIO.Containers.MTIndexSafe
     HelVM.HelIO.Containers.MTInsertDef
-    HelVM.HelIO.Containers.Util
+    HelVM.HelIO.Containers.Extra
 
     HelVM.HelIO.Control.Control
     HelVM.HelIO.Control.Message
@@ -122,12 +122,12 @@ library
     HelVM.HelIO.Digit.Digits
     HelVM.HelIO.Digit.ToDigit
 
-    HelVM.HelIO.ListLikeUtil
+    HelVM.HelIO.ListLikeExtra
     HelVM.HelIO.NamedValue
     HelVM.HelIO.ReadText
-    HelVM.HelIO.SequencesUtil
+    HelVM.HelIO.SequencesExtra
     HelVM.HelIO.SwitchEnum
-    HelVM.HelIO.Util
+    HelVM.HelIO.Extra
     HelVM.HelIO.ZipA
 
   build-depends:
@@ -160,7 +160,7 @@ test-suite helio-test
     HelVM.HelIO.Collections.MapListSpec
     HelVM.HelIO.Control.LoggerSpec
 
-    HelVM.HelIO.ListLikeUtilSpec
+    HelVM.HelIO.ListLikeExtraSpec
 
   build-depends:
       hspec

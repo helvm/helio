@@ -33,7 +33,7 @@ import           HelVM.HelIO.Control.Message
 
 import           Control.Monad.Writer.Lazy
 
-import           HelVM.HelIO.Util
+import           HelVM.HelIO.Extra
 
 import qualified Data.DList                  as D
 

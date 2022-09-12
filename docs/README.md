@@ -42,9 +42,9 @@ Common part of **[HelVM](http://helvm.github.io/)**
 * [CODE OF CONDUCT](developers/CODE_OF_CONDUCT.md)
 
 ## Reports
-* [hadock](reports/doc/index.html) - A documentation
-* [hlint](reports/hlint.html) - Source code suggestions report
-* [hpc](reports/hpc/helio-test/hpc_index.html) - Haskell program coverage report
+* [hadock](reports/helio/index.html) - A documentation
+* [hpc](reports/hpc/helio-test/hpc_index_fun.html) - Haskell program coverage report
 * [stan](reports/stan.html) - Haskell STatic ANalyser report
+* [hlint](reports/hlint.html) - Source code suggestions report
 
 ## 🦄 🌈 ❤️ 💛 💚 💙 🤍 🖤

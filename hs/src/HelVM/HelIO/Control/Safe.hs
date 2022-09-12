@@ -47,7 +47,7 @@ module HelVM.HelIO.Control.Safe (
 
 import           HelVM.HelIO.Control.Message
 
-import           HelVM.HelIO.Util
+import           HelVM.HelIO.Extra
 
 import           Control.Monad.Except        hiding (ExceptT, runExceptT)
 
