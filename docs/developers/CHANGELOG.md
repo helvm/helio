@@ -1,5 +1,9 @@
 # 📅 Revision history for HelVM Common
 
+## 0.1.1.1  -- 2022-09-12
+
+* Add `fromJustWithText`
+
 ## 0.1.1.0  -- 2022-09-12
 
 * Change `Util` to `Extra`

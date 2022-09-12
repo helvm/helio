@@ -8,6 +8,7 @@ module HelVM.HelIO.Extra (
   fromMaybeOrDef,
   headMaybe,
   fromJustWith,
+  fromJustWithText,
   tee,
 ) where
 
@@ -52,8 +53,11 @@ headMaybe :: [a] -> Maybe a
 headMaybe = viaNonEmpty head
 
 fromJustWith :: Show e => e -> Maybe a -> a
-fromJustWith e Nothing  = error $ show e
-fromJustWith _ (Just a) = a
+fromJustWith e = fromJustWithText (show e)
+
+fromJustWithText :: Text -> Maybe a -> a
+fromJustWithText t Nothing  = error t
+fromJustWithText _ (Just a) = a
 
 -- | Extra
 tee :: (a -> b -> c) -> (a -> b) -> a -> c
