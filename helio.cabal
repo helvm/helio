@@ -134,6 +134,7 @@ library
       containers           <  0.7
     , data-default
     , dlist
+    , extra
     , ilist
     , ListLike
     , mono-traversable
@@ -159,6 +160,7 @@ test-suite helio-test
 
     HelVM.HelIO.Collections.MapListSpec
     HelVM.HelIO.Control.LoggerSpec
+    HelVM.HelIO.Digits.DigitsSpec
 
     HelVM.HelIO.ListLikeExtraSpec
 

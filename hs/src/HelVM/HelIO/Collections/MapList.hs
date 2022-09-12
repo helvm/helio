@@ -4,6 +4,8 @@ import           HelVM.HelIO.Containers.LLIndexSafe
 import           HelVM.HelIO.Containers.LLInsertDef
 import           HelVM.HelIO.Control.Safe
 
+import           Control.Monad.Extra
+
 import           Data.Default
 
 import qualified Data.IntMap                        as IntMap
@@ -34,11 +36,12 @@ toDescList = IntMap.toDescList . unMapList
 
 -- | Internal function
 listFromDescList :: Default a => IndexedList a -> [a]
-listFromDescList = flip go [] where
-  go :: Default a => IndexedList a -> [a] -> [a]
-  go []                          acc = acc
-  go [(i , v)]                   acc = consDef i $ v : acc
-  go ((i1 , v1) : (i2 , v2) : l) acc = go ((i2 , v2) : l) $ consDef (i1 - i2 - 1)  $ v1 : acc
+listFromDescList = loop act . ( , [])
+
+act :: Default a => IndexedListWithAcc a -> Either (IndexedListWithAcc a) [a]
+act ([]                        , acc) = Right acc
+act ([(i , v)]                 , acc) = Right $ consDef i $ v : acc
+act ((i1 , v1) : (i2 , v2) : l , acc) = Left ((i2 , v2) : l , consDef (i1 - i2 - 1) $ v1 : acc)
 
 consDef :: Default a => Key -> [a] -> [a]
 consDef i l = (check . compare i) 0 where
@@ -47,6 +50,7 @@ consDef i l = (check . compare i) 0 where
   check GT = consDef (i - 1) (def : l)
 
 -- | Types
+type IndexedListWithAcc a = (IndexedList a , [a])
 type Key = IntMap.Key
 type IndexedList a = [(Key , a)]
 type MapString = MapList Char

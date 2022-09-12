@@ -2,8 +2,10 @@ module HelVM.HelIO.Digit.Digits (
   digitsToIntegral,
   naturalToDigits7,
   naturalToDigits2,
+  naturalToDigits,
 ) where
 
+import qualified Data.ListLike                 as LL
 import           HelVM.HelIO.Collections.SList
 import           HelVM.HelIO.Control.Safe
 
@@ -25,13 +27,8 @@ naturalToDigits2 :: Natural -> [Natural]
 naturalToDigits2 = naturalToDigits 2
 
 naturalToDigits :: Natural -> Natural -> [Natural]
-naturalToDigits base = unfoldl (divModMaybe base)
+naturalToDigits base = LL.reverse . unfoldr (modDivMaybe base)
 
-divModMaybe :: Natural -> Natural -> Maybe (Natural , Natural)
-divModMaybe _    0     = Nothing
-divModMaybe base value = Just (value `divMod` base)
-
-unfoldl :: (a -> Maybe (a , b)) -> a -> [b]
-unfoldl lambda = check . lambda where
-  check  Nothing       = []
-  check (Just (a , b)) = unfoldl lambda a <> [b]
+modDivMaybe :: Natural -> Natural -> Maybe (Natural , Natural)
+modDivMaybe _    0     = Nothing
+modDivMaybe base value = Just (swap $ value `divMod` base)
