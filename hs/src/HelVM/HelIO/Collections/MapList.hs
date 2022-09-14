@@ -36,12 +36,11 @@ toDescList = IntMap.toDescList . unMapList
 
 -- | Internal function
 listFromDescList :: Default a => IndexedList a -> [a]
-listFromDescList = loop act . ( , [])
-
-act :: Default a => IndexedListWithAcc a -> Either (IndexedListWithAcc a) [a]
-act ([]                        , acc) = Right acc
-act ([(i , v)]                 , acc) = Right $ consDef i $ v : acc
-act ((i1 , v1) : (i2 , v2) : l , acc) = Left ((i2 , v2) : l , consDef (i1 - i2 - 1) $ v1 : acc)
+listFromDescList = loop act . ([] , ) where
+  act :: Default a => AccWithIndexedList a -> Either (AccWithIndexedList a) [a]
+  act (acc , []                        ) = Right acc
+  act (acc , [(i , v)]                 ) = Right $ consDef i $ v : acc
+  act (acc , (i1 , v1) : (i2 , v2) : l ) = Left (consDef (i1 - i2 - 1) $ v1 : acc , (i2 , v2) : l)
 
 consDef :: Default a => Key -> [a] -> [a]
 consDef i l = (check . compare i) 0 where
@@ -50,7 +49,7 @@ consDef i l = (check . compare i) 0 where
   check GT = consDef (i - 1) (def : l)
 
 -- | Types
-type IndexedListWithAcc a = (IndexedList a , [a])
+type AccWithIndexedList a = ([a] , IndexedList a)
 type Key = IntMap.Key
 type IndexedList a = [(Key , a)]
 type MapString = MapList Char
