@@ -10,6 +10,8 @@ module HelVM.HelIO.Extra (
   fromJustWith,
   fromJustWithText,
   tee,
+  Atc,
+  AtcM
 ) where
 
 import           Data.Char          hiding (chr)
