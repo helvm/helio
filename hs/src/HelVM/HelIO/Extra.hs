@@ -10,8 +10,6 @@ module HelVM.HelIO.Extra (
   fromJustWith,
   fromJustWithText,
   tee,
-  Atc,
-  AtcM
 ) where
 
 import           Data.Char          hiding (chr)
@@ -65,5 +63,5 @@ fromJustWithText _ (Just a) = a
 tee :: (a -> b -> c) -> (a -> b) -> a -> c
 tee f1 f2 a = f1 a $ f2 a
 
-type Act s a = s -> Either s a
-type ActM m s a = s -> m (Either s a)
+--type Act s a = s -> Either s a
+--type ActM m s a = s -> m (Either s a)
