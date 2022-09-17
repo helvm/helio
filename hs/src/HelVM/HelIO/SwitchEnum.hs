@@ -11,7 +11,7 @@ enumFromBool :: (Bounded e , Enum e) => Bool -> e
 enumFromBool = unsafeEnum . fromEnum
 
 generateEnums :: (Bounded e , Enum e) => Int -> [e]
-generateEnums i = unsafeEnum <$> [0 .. i]
+generateEnums i = unsafeEnum <$> [0 .. (i - 1)]
 
 defaultEnum :: (Bounded e , Enum e) => e
 defaultEnum = unsafeEnum 0

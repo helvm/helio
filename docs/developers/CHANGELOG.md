@@ -1,5 +1,9 @@
 # 📅 Revision history for HelVM Common
 
+## 0.1.1.4  -- 2022-09-17
+
+* Fix `generateEnums`
+
 ## 0.1.1.3  -- 2022-09-17
 
 * Fix `generateEnums`
