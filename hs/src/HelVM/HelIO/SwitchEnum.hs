@@ -4,14 +4,17 @@ import           HelVM.HelIO.Extra
 
 import qualified Relude.Extra      as Extra
 
-unsafeEnum :: (Bounded e , Enum e) => Int -> e
-unsafeEnum = tee fromJustWith Extra.safeToEnum
+bothEnums :: (Bounded e , Enum e) => [e]
+bothEnums = enumFromBool <$> [False , True]
 
 enumFromBool :: (Bounded e , Enum e) => Bool -> e
 enumFromBool = unsafeEnum . fromEnum
 
-defaultEnum :: (Bounded e , Enum e) => e
-defaultEnum = enumFromBool False
+generateEnum :: (Bounded e , Enum e) => Int -> [e]
+generateEnum i = unsafeEnum <$> [0 .. i]
 
-bothEnums :: (Bounded e , Enum e) => [e]
-bothEnums = enumFromBool <$> [False , True]
+defaultEnum :: (Bounded e , Enum e) => e
+defaultEnum = unsafeEnum 0
+
+unsafeEnum :: (Bounded e , Enum e) => Int -> e
+unsafeEnum = tee fromJustWith Extra.safeToEnum

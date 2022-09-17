@@ -1,5 +1,10 @@
 # 📅 Revision history for HelVM Common
 
+## 0.1.1.2  -- 2022-09-17
+
+* Add `unfoldrM`
+* Add `repeatedlyM`
+
 ## 0.1.1.1  -- 2022-09-12
 
 * Add `fromJustWithText`

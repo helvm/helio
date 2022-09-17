@@ -9,6 +9,10 @@ module HelVM.HelIO.Extra (
   headMaybe,
   fromJustWith,
   fromJustWithText,
+  unfoldrM,
+--  unfoldr,
+  repeatedlyM,
+  repeatedly,
   tee,
 ) where
 
@@ -27,7 +31,7 @@ toUppers = Text.map toUpper
 splitOneOf :: String -> Text -> [Text]
 splitOneOf s = Text.split contains where contains c = c `elem` s
 
-----
+-- | ShowExtra
 
 showP :: Show a => a -> Text
 showP = toText . pShowNoColor
@@ -59,7 +63,26 @@ fromJustWithText :: Text -> Maybe a -> a
 fromJustWithText t Nothing  = error t
 fromJustWithText _ (Just a) = a
 
+-- | ListExtra
+
+unfoldrM :: Monad m => (a -> m (Maybe (b, a))) -> a -> m [b]
+unfoldrM f a = go =<< f a where
+  go  Nothing       = pure []
+  go (Just (b, a')) = (b : ) <$> (go =<< f a')
+
+--unfoldr :: (a ->  Maybe (b, a)) -> a -> [b]
+--unfoldr f = runIdentity . unfoldrM (Identity . f)
+
+repeatedlyM :: Monad m => ([a] -> m (b, [a])) -> [a] -> m [b]
+repeatedlyM f = go where
+  go [] = pure []
+  go a  = build =<< f a where build (b, a') = (b : ) <$> go a'
+
+repeatedly :: ([a] -> (b, [a])) -> [a] -> [b]
+repeatedly f = runIdentity . repeatedlyM (Identity . f)
+
 -- | Extra
+
 tee :: (a -> b -> c) -> (a -> b) -> a -> c
 tee f1 f2 a = f1 a $ f2 a
 

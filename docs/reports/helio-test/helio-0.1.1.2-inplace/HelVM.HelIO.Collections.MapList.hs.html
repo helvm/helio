@@ -55,7 +55,7 @@ span.spaces    { background: white }
 <span class="lineno">   36 </span>
 <span class="lineno">   37 </span>-- | Internal function
 <span class="lineno">   38 </span>listFromDescList :: Default a =&gt; IndexedList a -&gt; [a]
-<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">listFromDescList = loop act . ( [] , ) where</span>
+<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">listFromDescList = loop act . ([] , ) where</span>
 <span class="lineno">   40 </span><span class="spaces">  </span><span class="istickedoff">act :: Default a =&gt; AccWithIndexedList a -&gt; Either (AccWithIndexedList a) [a]</span>
 <span class="lineno">   41 </span><span class="spaces">  </span><span class="istickedoff">act (acc , []                        ) = <span class="nottickedoff">Right acc</span></span>
 <span class="lineno">   42 </span><span class="spaces">  </span><span class="istickedoff">act (acc , [(i , v)]                 ) = Right $ consDef i $ v : acc</span>
