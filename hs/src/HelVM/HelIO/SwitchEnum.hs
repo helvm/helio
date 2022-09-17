@@ -10,8 +10,8 @@ bothEnums = enumFromBool <$> [False , True]
 enumFromBool :: (Bounded e , Enum e) => Bool -> e
 enumFromBool = unsafeEnum . fromEnum
 
-generateEnum :: (Bounded e , Enum e) => Int -> [e]
-generateEnum i = unsafeEnum <$> [0 .. i]
+generateEnums :: (Bounded e , Enum e) => Int -> [e]
+generateEnums i = unsafeEnum <$> [0 .. i]
 
 defaultEnum :: (Bounded e , Enum e) => e
 defaultEnum = unsafeEnum 0
