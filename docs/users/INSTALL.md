@@ -30,6 +30,14 @@ make haddock
 make hpc
 ```
 
+## Install StAN
+```bash
+git clone https://github.com/kowainik/stan.git
+cd stan
+cabal v2-build exe:stan
+cp "$(cabal v2-exec --verbose=0 --offline sh -- -c 'command -v stan')" ~/.local/bin/stan
+```
+
 ## Other
 
 For more see [CONTRIBUTING](../developers/CONTRIBUTING.md).

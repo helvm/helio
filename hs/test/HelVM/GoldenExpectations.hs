@@ -44,11 +44,14 @@ goldenShouldBe actualOutput fileName =
     output = actualOutput,
     encodePretty = show,
     writeToFile = writeFileText,
-    readFromFile = readFileText,
+    readFromFile = readFileTextUtf8,
     goldenFile = ".output" </> "golden" </> fileName,
     actualFile = Just (".output" </> "actual" </> fileName),
     failFirstTime = False
   }
+
+readFileTextUtf8 :: MonadIO m => FilePath -> m Text
+readFileTextUtf8 = (pure . decodeUtf8) <=< readFileBS
 
 ----
 
@@ -60,5 +63,5 @@ type GoldenIO a = IO $ Golden a
 
 instance Eq str => Example (GoldenExpectations str) where
   type Arg (GoldenExpectations str) = ()
-  evaluateExample wrapped params action callback = evaluateExample' =<< unGoldenExpectations wrapped where
-    evaluateExample' golden = evaluateExample golden params action callback
+  evaluateExample wrapped params action callback = build =<< unGoldenExpectations wrapped where
+    build golden = evaluateExample golden params action callback

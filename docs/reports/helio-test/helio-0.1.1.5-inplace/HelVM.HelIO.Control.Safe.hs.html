@@ -128,7 +128,7 @@ span.spaces    { background: white }
 <span class="lineno">  109 </span>
 <span class="lineno">  110 </span>-- | Lift
 <span class="lineno">  111 </span>liftExceptT :: MonadError e m =&gt; ExceptT e m a -&gt; m a
-<span class="lineno">  112 </span><span class="decl"><span class="nottickedoff">liftExceptT m = liftEither =&lt;&lt; runExceptT m</span></span>
+<span class="lineno">  112 </span><span class="decl"><span class="nottickedoff">liftExceptT = liftEither &lt;=&lt; runExceptT</span></span>
 <span class="lineno">  113 </span>
 <span class="lineno">  114 </span>liftSafe :: MonadSafe m =&gt; Safe a -&gt; m a
 <span class="lineno">  115 </span><span class="decl"><span class="nottickedoff">liftSafe = liftEither</span></span>

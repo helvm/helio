@@ -1,20 +1,4 @@
-module HelVM.HelIO.Extra (
-  toUppers,
-  splitOneOf,
-  showP,
-  showToText,
-  genericChr,
-  (???),
-  fromMaybeOrDef,
-  headMaybe,
-  fromJustWith,
-  fromJustWithText,
-  unfoldrM,
---  unfoldr,
-  repeatedlyM,
-  repeatedly,
-  tee,
-) where
+module HelVM.HelIO.Extra where
 
 import           Data.Char          hiding (chr)
 import           Data.Default
@@ -66,17 +50,20 @@ fromJustWithText _ (Just a) = a
 -- | ListExtra
 
 unfoldrM :: Monad m => (a -> m (Maybe (b, a))) -> a -> m [b]
-unfoldrM f a = go =<< f a where
+unfoldrM f = go <=< f where
   go  Nothing       = pure []
-  go (Just (b, a')) = (b : ) <$> (go =<< f a')
+  go (Just (b, a')) = (b : ) <$> (go <=< f) a'
 
 --unfoldr :: (a ->  Maybe (b, a)) -> a -> [b]
 --unfoldr f = runIdentity . unfoldrM (Identity . f)
 
-repeatedlyM :: Monad m => ([a] -> m (b, [a])) -> [a] -> m [b]
-repeatedlyM f = go where
+runParser :: Monad m => Parser a b m -> [a] -> m [b]
+runParser f = go where
   go [] = pure []
-  go a  = build =<< f a where build (b, a') = (b : ) <$> go a'
+  go a  = (build <=< f) a where build (b, a') = (b : ) <$> go a'
+
+repeatedlyM :: Monad m => Parser a b m -> [a] -> m [b]
+repeatedlyM = runParser
 
 repeatedly :: ([a] -> (b, [a])) -> [a] -> [b]
 repeatedly f = runIdentity . repeatedlyM (Identity . f)
@@ -84,7 +71,8 @@ repeatedly f = runIdentity . repeatedlyM (Identity . f)
 -- | Extra
 
 tee :: (a -> b -> c) -> (a -> b) -> a -> c
-tee f1 f2 a = f1 a $ f2 a
+tee f1 f2 a = (f1 a . f2) a
 
---type Act s a = s -> Either s a
---type ActM m s a = s -> m (Either s a)
+type Act s a = s -> Either s a
+type ActM m s a = s -> m (Either s a)
+type Parser a b m = [a] -> m (b, [a])

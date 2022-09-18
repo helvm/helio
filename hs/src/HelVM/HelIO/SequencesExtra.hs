@@ -1,6 +1,7 @@
 module HelVM.HelIO.SequencesExtra where
 
 import           HelVM.HelIO.Control.Safe
+import           HelVM.HelIO.ZipA
 
 import           Control.Type.Operator
 
@@ -46,9 +47,8 @@ uncons2Safe :: (MonadSafe m , IsSequence seq) => seq -> m (Element seq , Element
 uncons2Safe = liftMaybeOrError "Empty" . uncons2
 
 uncons2 :: IsSequence seq => seq -> Maybe (Element seq, Element seq, seq)
-uncons2 s = uncons2' =<< uncons s where
-  uncons2' (e , s') = uncons2'' <$> uncons s' where
-    uncons2'' (e' , s'') = (e , e' , s'')
+uncons2 = build <=< uncons where
+  build (e , s') = (><<) e <$> uncons s'
 
 -- | Insert a new element
 class (Integral (Index seq) , SemiSequence seq) => InsertDef seq where

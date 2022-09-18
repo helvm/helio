@@ -32,6 +32,6 @@ uncons2Safe :: (MonadSafe m , ListLike full item) => full -> m (item , item , fu
 uncons2Safe = liftMaybeOrError "Empty ListLike" . uncons2
 
 uncons2 :: ListLike full item => full -> Maybe (item, item, full)
-uncons2 l = uncons2' =<< uncons l where
+uncons2 = uncons2' <=< uncons where
   uncons2' (e , l') = uncons2'' <$> uncons l' where
     uncons2'' (e' , l'') = (e , e' , l'')

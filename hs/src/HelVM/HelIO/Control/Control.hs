@@ -35,10 +35,10 @@ controlTToIO False = controlTToIOWithoutLogs
 controlTToIO True  = controlTToIOWithLogs
 
 controlTToIOWithoutLogs :: ControlT IO a -> IO a
-controlTToIOWithoutLogs a = safeWithMessagesToIOWithoutLogs =<< runControlT a
+controlTToIOWithoutLogs = safeWithMessagesToIOWithoutLogs <=< runControlT
 
 controlTToIOWithLogs :: ControlT IO a -> IO a
-controlTToIOWithLogs a = safeWithMessagesToIOWithLogs =<< runControlT a
+controlTToIOWithLogs = safeWithMessagesToIOWithLogs <=< runControlT
 
 controlToIO :: Control a -> IO a
 controlToIO = safeToIO . removeLogger

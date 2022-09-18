@@ -43,7 +43,7 @@ Common part of **[HelVM](http://helvm.github.io/)**
 
 ## Reports
 * [hadock](reports/helio/index.html) - A documentation
-* [hpc](reports/hpc/helio-test/hpc_index_fun.html) - Haskell program coverage report
+* [hpc](reports/helio-test/hpc_index_fun.html) - Haskell program coverage report
 * [stan](reports/stan.html) - Haskell STatic ANalyser report
 * [hlint](reports/hlint.html) - Source code suggestions report
 

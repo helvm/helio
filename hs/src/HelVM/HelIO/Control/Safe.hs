@@ -109,7 +109,7 @@ safeT a = ExceptT $ pure <$> a
 
 -- | Lift
 liftExceptT :: MonadError e m => ExceptT e m a -> m a
-liftExceptT m = liftEither =<< runExceptT m
+liftExceptT = liftEither <=< runExceptT
 
 liftSafe :: MonadSafe m => Safe a -> m a
 liftSafe = liftEither
