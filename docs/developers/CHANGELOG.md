@@ -1,5 +1,9 @@
 # 📅 Revision history for HelVM Common
 
+## 0.1.1.6 -- 2022-09-28
+
+* Add `readFileTextUtf8`
+
 ## 0.1.1.5  -- 2022-09-28
 
 * Use `<=<`

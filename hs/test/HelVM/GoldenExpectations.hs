@@ -11,6 +11,8 @@ module HelVM.GoldenExpectations (
 import           HelVM.HelIO.Control.Control
 import           HelVM.HelIO.Control.Safe
 
+import           HelVM.HelIO.Extra
+
 import           Control.Type.Operator
 import           System.FilePath.Posix
 
@@ -49,9 +51,6 @@ goldenShouldBe actualOutput fileName =
     actualFile = Just (".output" </> "actual" </> fileName),
     failFirstTime = False
   }
-
-readFileTextUtf8 :: MonadIO m => FilePath -> m Text
-readFileTextUtf8 = (pure . decodeUtf8) <=< readFileBS
 
 ----
 

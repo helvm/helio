@@ -7,6 +7,11 @@ import           Text.Pretty.Simple
 
 import qualified Data.Text          as Text
 
+-- | FilesExtra
+
+readFileTextUtf8 :: MonadIO m => FilePath -> m Text
+readFileTextUtf8 = (pure . decodeUtf8) <=< readFileBS
+
 -- | TextExtra
 
 toUppers :: Text -> Text
