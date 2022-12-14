@@ -41,10 +41,10 @@ top :: (MonadSafe m , IsSequence seq) => seq -> m $ Element seq
 top s = fst <$> unconsSafe s
 
 unconsSafe :: (MonadSafe m , IsSequence seq) => seq -> m (Element seq , seq)
-unconsSafe = liftMaybeOrError "Empty IsSequence" . uncons
+unconsSafe = liftMaybeOrError "Empty IsSequence for unconsSafe" . uncons
 
 uncons2Safe :: (MonadSafe m , IsSequence seq) => seq -> m (Element seq , Element seq , seq)
-uncons2Safe = liftMaybeOrError "Empty" . uncons2
+uncons2Safe = liftMaybeOrError "Empty IsSequence for uncons2Safe" . uncons2
 
 uncons2 :: IsSequence seq => seq -> Maybe (Element seq, Element seq, seq)
 uncons2 = build <=< uncons where

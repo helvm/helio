@@ -1,5 +1,9 @@
 # 📅 Revision history for HelVM Common
 
+## 0.1.1.7 -- 2022-12-14
+
+* Add better message for Empty collections
+
 ## 0.1.1.6 -- 2022-09-28
 
 * Add `readFileTextUtf8`
