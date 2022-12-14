@@ -39,10 +39,10 @@ span.spaces    { background: white }
 <span class="lineno">   20 </span>
 <span class="lineno">   21 </span>-- | Pop
 <span class="lineno">   22 </span>discard :: (MonadSafe m , ListLike full item) =&gt; full -&gt; m full
-<span class="lineno">   23 </span><span class="decl"><span class="nottickedoff">discard l = snd &lt;$&gt; unconsSafe l</span></span>
+<span class="lineno">   23 </span><span class="decl"><span class="nottickedoff">discard l = appendError &quot;Error for discard&quot; $ snd &lt;$&gt; unconsSafe l</span></span>
 <span class="lineno">   24 </span>
 <span class="lineno">   25 </span>top :: (MonadSafe m , ListLike full item) =&gt; full -&gt; m item
-<span class="lineno">   26 </span><span class="decl"><span class="nottickedoff">top s = fst &lt;$&gt; unconsSafe s</span></span>
+<span class="lineno">   26 </span><span class="decl"><span class="nottickedoff">top s = appendError &quot;Error for top&quot; $ fst &lt;$&gt; unconsSafe s</span></span>
 <span class="lineno">   27 </span>
 <span class="lineno">   28 </span>unconsSafe :: (MonadSafe m , ListLike full item) =&gt; full -&gt; m (item , full)
 <span class="lineno">   29 </span><span class="decl"><span class="nottickedoff">unconsSafe = liftMaybeOrError &quot;Empty ListLike for unconsSafe&quot; . uncons</span></span>

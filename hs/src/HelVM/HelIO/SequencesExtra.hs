@@ -35,10 +35,10 @@ splitBy separator l =  (acc , drop 1 l') where (acc , l') = break (== separator)
 
 -- | Pop
 discard :: (MonadSafe m , IsSequence seq) => seq -> m seq
-discard s = snd <$> unconsSafe s
+discard s = appendError "Error for discard" $ snd <$> unconsSafe s
 
 top :: (MonadSafe m , IsSequence seq) => seq -> m $ Element seq
-top s = fst <$> unconsSafe s
+top s = appendError "Error for top" $ fst <$> unconsSafe s
 
 unconsSafe :: (MonadSafe m , IsSequence seq) => seq -> m (Element seq , seq)
 unconsSafe = liftMaybeOrError "Empty IsSequence for unconsSafe" . uncons

@@ -20,10 +20,10 @@ splitBy separator l =  (acc , drop 1 l') where (acc , l') = break (== separator)
 
 -- | Pop
 discard :: (MonadSafe m , ListLike full item) => full -> m full
-discard l = snd <$> unconsSafe l
+discard l = appendError "Error for discard" $ snd <$> unconsSafe l
 
 top :: (MonadSafe m , ListLike full item) => full -> m item
-top s = fst <$> unconsSafe s
+top s = appendError "Error for top" $ fst <$> unconsSafe s
 
 unconsSafe :: (MonadSafe m , ListLike full item) => full -> m (item , full)
 unconsSafe = liftMaybeOrError "Empty ListLike for unconsSafe" . uncons
