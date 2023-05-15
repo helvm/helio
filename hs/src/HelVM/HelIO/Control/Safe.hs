@@ -37,6 +37,7 @@ module HelVM.HelIO.Control.Safe (
   appendErrorTupleList,
   appendErrorTuple,
   appendError,
+  (<?>),
 
   MonadSafe,
   SafeT,
@@ -155,6 +156,9 @@ appendErrorTuple = appendError . tupleToMessage
 
 appendError :: MonadSafe m => Message -> m a -> m a
 appendError message a = catchError a appendAndThrow where appendAndThrow es = throwError (es `D.snoc` message)
+
+(<?>) :: MonadSafe m => m a -> Message -> m a
+(<?>) a message = appendError message a
 
 -- | Types
 type MonadSafe m = MonadError Messages m

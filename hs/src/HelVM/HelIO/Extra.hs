@@ -1,11 +1,13 @@
 module HelVM.HelIO.Extra where
 
-import           Data.Char          hiding (chr)
+import           Control.Type.Operator
+
+import           Data.Char             hiding (chr)
 import           Data.Default
 import           Data.Typeable
 import           Text.Pretty.Simple
 
-import qualified Data.Text          as Text
+import qualified Data.Text             as Text
 
 -- | FilesExtra
 
@@ -72,6 +74,11 @@ repeatedlyM = runParser
 
 repeatedly :: ([a] -> (b, [a])) -> [a] -> [b]
 repeatedly f = runIdentity . repeatedlyM (Identity . f)
+
+-- | NonEmptyExtra
+
+many1' :: (Monad f, Alternative f) => f a -> f $ NonEmpty a
+many1' p = liftA2 (:|) p $ many p
 
 -- | Extra
 

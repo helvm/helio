@@ -1,18 +1,4 @@
-module HelVM.HelIO.ZipA where
-
--- | Deprecated, use HelVM.HelIO.CartesianProduct
-
-infixr 9 |><|
-(|><|) :: Applicative f => f a1 -> f b1 -> f (a1 , b1)
-(|><|) = (>*<)
-
-infixr 9 >><|
-(>><|) :: Applicative f => f (a1 , a2) -> f b1 -> f (a1 , a2 , b1)
-(>><|) = (>>*<)
-
-infixr 9 |><<
-(|><<) :: Applicative f => f a1 -> f (b1 , b2) -> f (a1 , b1 , b2)
-(|><<) = (>*<<)
+module HelVM.HelIO.CartesianProduct where
 
 infixr 9 >*<
 (>*<) :: Applicative f => f a1 -> f b1 -> f (a1 , b1)
@@ -33,4 +19,3 @@ infixr 9 >><
 infixr 9 ><<
 (><<) :: a1 -> (b1 , b2) -> (a1 , b1 , b2)
 (><<) a1 (b1 , b2) = (a1 , b1 , b2)
-
