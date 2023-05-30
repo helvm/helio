@@ -82,6 +82,7 @@ many1' p = liftA2 (:|) p $ many p
 
 -- | Extra
 
+-- | `tee` is deprecated, use `<*>`
 tee :: (a -> b -> c) -> (a -> b) -> a -> c
 tee f1 f2 a = (f1 a . f2) a
 

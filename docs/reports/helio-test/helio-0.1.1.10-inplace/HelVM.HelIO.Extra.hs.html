@@ -101,12 +101,13 @@ span.spaces    { background: white }
 <span class="lineno">   82 </span>
 <span class="lineno">   83 </span>-- | Extra
 <span class="lineno">   84 </span>
-<span class="lineno">   85 </span>tee :: (a -&gt; b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-<span class="lineno">   86 </span><span class="decl"><span class="nottickedoff">tee f1 f2 a = (f1 a . f2) a</span></span>
-<span class="lineno">   87 </span>
-<span class="lineno">   88 </span>type Act s a = s -&gt; Either s a
-<span class="lineno">   89 </span>type ActM m s a = s -&gt; m (Either s a)
-<span class="lineno">   90 </span>type Parser a b m = [a] -&gt; m (b, [a])
+<span class="lineno">   85 </span>-- | `tee` is deprecated, use `&lt;*&gt;`
+<span class="lineno">   86 </span>tee :: (a -&gt; b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
+<span class="lineno">   87 </span><span class="decl"><span class="nottickedoff">tee f1 f2 a = (f1 a . f2) a</span></span>
+<span class="lineno">   88 </span>
+<span class="lineno">   89 </span>type Act s a = s -&gt; Either s a
+<span class="lineno">   90 </span>type ActM m s a = s -&gt; m (Either s a)
+<span class="lineno">   91 </span>type Parser a b m = [a] -&gt; m (b, [a])
 
 </pre>
 </body>
