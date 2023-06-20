@@ -1,14 +1,14 @@
 module HelVM.Expectations  (
   ioShouldSafe,
   ioShouldBe,
-  shouldControlT,
+  shouldBusinessT,
   shouldSafeT,
   shouldSafeIO,
   shouldSafe,
   shouldBeDo,
 ) where
 
-import           HelVM.HelIO.Control.Control
+import           HelVM.HelIO.Control.Business
 import           HelVM.HelIO.Control.Safe
 
 import           Test.Hspec.Expectations.Pretty
@@ -23,9 +23,9 @@ ioShouldBe action expected = join $ liftA2 shouldBe action expected
 
 ----
 
-infix 1 `shouldControlT`
-shouldControlT :: (Show a , Eq a) => ControlT IO a -> a -> Expectation
-shouldControlT action = shouldReturn (controlTToIOWithLogs action)
+infix 1 `shouldBusinessT`
+shouldBusinessT :: (Show a , Eq a) => BusinessT IO a -> a -> Expectation
+shouldBusinessT action = shouldReturn (businessTToIOWithLogs action)
 
 infix 1 `shouldSafeT`
 shouldSafeT :: (Show a , Eq a) => SafeT IO a -> a -> Expectation

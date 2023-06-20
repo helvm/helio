@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helio
-version:               0.1.1.10
+version:               0.1.2.0
 
 synopsis:              HelVM Common Library
 description:           Please see the README on GitHub at <https://github.com/helvm/helio#readme>
@@ -33,7 +33,7 @@ flag ghcoptions
 
 common common-options
   build-depends:
-      base                 <  4.17
+      base                 <  4.19
     , relude               == 1.1.0.0
   mixins:
       base hiding (Prelude)
@@ -104,23 +104,6 @@ library
   import:              common-options
   hs-source-dirs:      hs/src
   exposed-modules:
-    HelVM.HelIO.Collections.MapList
-    HelVM.HelIO.Collections.SList
-
-    HelVM.HelIO.Containers.LLIndexSafe
-    HelVM.HelIO.Containers.LLInsertDef
-    HelVM.HelIO.Containers.MTIndexSafe
-    HelVM.HelIO.Containers.MTInsertDef
-    HelVM.HelIO.Containers.Extra
-
-    HelVM.HelIO.Control.Control
-    HelVM.HelIO.Control.Message
-    HelVM.HelIO.Control.Logger
-    HelVM.HelIO.Control.Safe
-
-    HelVM.HelIO.Digit.Digitable
-    HelVM.HelIO.Digit.Digits
-    HelVM.HelIO.Digit.ToDigit
 
     HelVM.HelIO.CartesianProduct
     HelVM.HelIO.ListLikeExtra
@@ -131,8 +114,32 @@ library
     HelVM.HelIO.Extra
     HelVM.HelIO.ZipA
 
+    HelVM.HelIO.Collections.MapList
+    HelVM.HelIO.Collections.SList
+
+    HelVM.HelIO.Containers.LLIndexSafe
+    HelVM.HelIO.Containers.LLInsertDef
+    HelVM.HelIO.Containers.MTIndexSafe
+    HelVM.HelIO.Containers.MTInsertDef
+    HelVM.HelIO.Containers.Extra
+
+    HelVM.HelIO.Control.Business
+    HelVM.HelIO.Control.Control
+    HelVM.HelIO.Control.Message
+    HelVM.HelIO.Control.Logger
+    HelVM.HelIO.Control.Safe
+
+    HelVM.HelIO.Digit.Digitable
+    HelVM.HelIO.Digit.Digits
+    HelVM.HelIO.Digit.ToDigit
+
+    HelVM.HelIO.IO.BIO
+    HelVM.HelIO.IO.Console
+    HelVM.HelIO.IO.FileReader
+
   build-depends:
-      containers
+      bytestring
+    , containers
     , data-default
     , dlist
     , extra

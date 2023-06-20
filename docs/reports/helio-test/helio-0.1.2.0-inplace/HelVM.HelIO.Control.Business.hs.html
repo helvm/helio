@@ -17,25 +17,25 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>module HelVM.HelIO.Control.Control (
-<span class="lineno">    2 </span>  controlTToIO,
-<span class="lineno">    3 </span>  controlTToIOWithoutLogs,
-<span class="lineno">    4 </span>  controlTToIOWithLogs,
-<span class="lineno">    5 </span>  controlToIO,
+<span class="lineno">    1 </span>module HelVM.HelIO.Control.Business (
+<span class="lineno">    2 </span>  businessTToIO,
+<span class="lineno">    3 </span>  businessTToIOWithoutLogs,
+<span class="lineno">    4 </span>  businessTToIOWithLogs,
+<span class="lineno">    5 </span>  businessToIO,
 <span class="lineno">    6 </span>
-<span class="lineno">    7 </span>  runControlT,
-<span class="lineno">    8 </span>  runControl,
+<span class="lineno">    7 </span>  runBusinessT,
+<span class="lineno">    8 </span>  runBusiness,
 <span class="lineno">    9 </span>
 <span class="lineno">   10 </span>  safeWithMessagesToText,
 <span class="lineno">   11 </span>
-<span class="lineno">   12 </span>  controlT,
-<span class="lineno">   13 </span>  control,
+<span class="lineno">   12 </span>  businessT,
+<span class="lineno">   13 </span>  business,
 <span class="lineno">   14 </span>
 <span class="lineno">   15 </span>  safeWithMessages,
 <span class="lineno">   16 </span>
-<span class="lineno">   17 </span>  MonadControl,
-<span class="lineno">   18 </span>  ControlT,
-<span class="lineno">   19 </span>  Control,
+<span class="lineno">   17 </span>  MonadBusiness,
+<span class="lineno">   18 </span>  BusinessT,
+<span class="lineno">   19 </span>  Business,
 <span class="lineno">   20 </span>
 <span class="lineno">   21 </span>  UnitSafeWithMessages,
 <span class="lineno">   22 </span>  SafeWithMessages
@@ -49,24 +49,24 @@ span.spaces    { background: white }
 <span class="lineno">   30 </span>
 <span class="lineno">   31 </span>import qualified System.IO                   as IO
 <span class="lineno">   32 </span>
-<span class="lineno">   33 </span>controlTToIO :: Bool -&gt; ControlT IO a -&gt; IO a
-<span class="lineno">   34 </span><span class="decl"><span class="nottickedoff">controlTToIO False = controlTToIOWithoutLogs</span>
-<span class="lineno">   35 </span><span class="spaces"></span><span class="nottickedoff">controlTToIO True  = controlTToIOWithLogs</span></span>
+<span class="lineno">   33 </span>businessTToIO :: Bool -&gt; BusinessT IO a -&gt; IO a
+<span class="lineno">   34 </span><span class="decl"><span class="nottickedoff">businessTToIO False = businessTToIOWithoutLogs</span>
+<span class="lineno">   35 </span><span class="spaces"></span><span class="nottickedoff">businessTToIO True  = businessTToIOWithLogs</span></span>
 <span class="lineno">   36 </span>
-<span class="lineno">   37 </span>controlTToIOWithoutLogs :: ControlT IO a -&gt; IO a
-<span class="lineno">   38 </span><span class="decl"><span class="nottickedoff">controlTToIOWithoutLogs = safeWithMessagesToIOWithoutLogs &lt;=&lt; runControlT</span></span>
+<span class="lineno">   37 </span>businessTToIOWithoutLogs :: BusinessT IO a -&gt; IO a
+<span class="lineno">   38 </span><span class="decl"><span class="nottickedoff">businessTToIOWithoutLogs = safeWithMessagesToIOWithoutLogs &lt;=&lt; runBusinessT</span></span>
 <span class="lineno">   39 </span>
-<span class="lineno">   40 </span>controlTToIOWithLogs :: ControlT IO a -&gt; IO a
-<span class="lineno">   41 </span><span class="decl"><span class="nottickedoff">controlTToIOWithLogs = safeWithMessagesToIOWithLogs &lt;=&lt; runControlT</span></span>
+<span class="lineno">   40 </span>businessTToIOWithLogs :: BusinessT IO a -&gt; IO a
+<span class="lineno">   41 </span><span class="decl"><span class="nottickedoff">businessTToIOWithLogs = safeWithMessagesToIOWithLogs &lt;=&lt; runBusinessT</span></span>
 <span class="lineno">   42 </span>
-<span class="lineno">   43 </span>controlToIO :: Control a -&gt; IO a
-<span class="lineno">   44 </span><span class="decl"><span class="nottickedoff">controlToIO = safeToIO . removeLogger</span></span>
+<span class="lineno">   43 </span>businessToIO :: Business a -&gt; IO a
+<span class="lineno">   44 </span><span class="decl"><span class="nottickedoff">businessToIO = safeToIO . removeLogger</span></span>
 <span class="lineno">   45 </span>
-<span class="lineno">   46 </span>runControlT :: ControlT m a -&gt; m $ SafeWithMessages a
-<span class="lineno">   47 </span><span class="decl"><span class="nottickedoff">runControlT = runLoggerT . runSafeT</span></span>
+<span class="lineno">   46 </span>runBusinessT :: BusinessT m a -&gt; m $ SafeWithMessages a
+<span class="lineno">   47 </span><span class="decl"><span class="nottickedoff">runBusinessT = runLoggerT . runSafeT</span></span>
 <span class="lineno">   48 </span>
-<span class="lineno">   49 </span>runControl :: Control a -&gt; SafeWithMessages a
-<span class="lineno">   50 </span><span class="decl"><span class="nottickedoff">runControl a = runLogger $ runSafe &lt;$&gt; a</span></span>
+<span class="lineno">   49 </span>runBusiness :: Business a -&gt; SafeWithMessages a
+<span class="lineno">   50 </span><span class="decl"><span class="nottickedoff">runBusiness a = runLogger $ runSafe &lt;$&gt; a</span></span>
 <span class="lineno">   51 </span>
 <span class="lineno">   52 </span>safeWithMessagesToIOWithoutLogs :: SafeWithMessages a -&gt; IO a
 <span class="lineno">   53 </span><span class="decl"><span class="nottickedoff">safeWithMessagesToIOWithoutLogs (safe , _) = safeToIO safe</span></span>
@@ -78,21 +78,21 @@ span.spaces    { background: white }
 <span class="lineno">   59 </span><span class="decl"><span class="nottickedoff">safeWithMessagesToText (safe , messages) = errorsToText messages &lt;&gt; safeToText safe</span></span>
 <span class="lineno">   60 </span>
 <span class="lineno">   61 </span>-- | Constructors
-<span class="lineno">   62 </span>controlT :: Monad m =&gt; m a -&gt; ControlT m a
-<span class="lineno">   63 </span><span class="decl"><span class="nottickedoff">controlT = safeT . loggerT</span></span>
+<span class="lineno">   62 </span>businessT :: Monad m =&gt; m a -&gt; BusinessT m a
+<span class="lineno">   63 </span><span class="decl"><span class="nottickedoff">businessT = safeT . loggerT</span></span>
 <span class="lineno">   64 </span>
-<span class="lineno">   65 </span>control :: a -&gt; Control a
-<span class="lineno">   66 </span><span class="decl"><span class="nottickedoff">control = logger . pure</span></span>
+<span class="lineno">   65 </span>business :: a -&gt; Business a
+<span class="lineno">   66 </span><span class="decl"><span class="nottickedoff">business = logger . pure</span></span>
 <span class="lineno">   67 </span>
 <span class="lineno">   68 </span>safeWithMessages :: a -&gt; SafeWithMessages a
 <span class="lineno">   69 </span><span class="decl"><span class="nottickedoff">safeWithMessages = withMessages . pure</span></span>
 <span class="lineno">   70 </span>
 <span class="lineno">   71 </span>-- | Types
-<span class="lineno">   72 </span>type MonadControl m = (MonadLogger m, MonadSafe m)
+<span class="lineno">   72 </span>type MonadBusiness m = (MonadLogger m , MonadSafe m)
 <span class="lineno">   73 </span>
-<span class="lineno">   74 </span>type ControlT m = SafeT (LoggerT m)
+<span class="lineno">   74 </span>type BusinessT m = SafeT (LoggerT m)
 <span class="lineno">   75 </span>
-<span class="lineno">   76 </span>type Control a = Logger $ Safe a
+<span class="lineno">   76 </span>type Business a = Logger $ Safe a
 <span class="lineno">   77 </span>
 <span class="lineno">   78 </span>type UnitSafeWithMessages = SafeWithMessages ()
 <span class="lineno">   79 </span>

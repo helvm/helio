@@ -157,6 +157,7 @@ appendErrorTuple = appendError . tupleToMessage
 appendError :: MonadSafe m => Message -> m a -> m a
 appendError message a = catchError a appendAndThrow where appendAndThrow es = throwError (es `D.snoc` message)
 
+infix  0 <?>
 (<?>) :: MonadSafe m => m a -> Message -> m a
 (<?>) a message = appendError message a
 

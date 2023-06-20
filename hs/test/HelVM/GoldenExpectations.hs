@@ -1,14 +1,14 @@
 module HelVM.GoldenExpectations (
   (<->),
 
-  goldenShouldControlT,
+  goldenShouldBusinessT,
   goldenShouldSafeT,
   goldenShouldSafe,
   goldenShouldIO,
   goldenShouldBe,
 ) where
 
-import           HelVM.HelIO.Control.Control
+import           HelVM.HelIO.Control.Business
 import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.Extra
@@ -23,9 +23,9 @@ infixl 1 <->
 (<->) :: FilePath -> FilePath -> FilePath
 (<->) major minor = major <> "-" <> minor
 
-infix 1 `goldenShouldControlT`
-goldenShouldControlT :: ControlT IO Text -> FilePath -> GoldenExpectations Text
-goldenShouldControlT actualOutput = goldenShouldIO (controlTToIOWithLogs actualOutput)
+infix 1 `goldenShouldBusinessT`
+goldenShouldBusinessT :: BusinessT IO Text -> FilePath -> GoldenExpectations Text
+goldenShouldBusinessT actualOutput = goldenShouldIO (businessTToIOWithLogs actualOutput)
 
 infix 1 `goldenShouldSafeT`
 goldenShouldSafeT :: SafeT IO Text -> FilePath -> GoldenExpectations Text

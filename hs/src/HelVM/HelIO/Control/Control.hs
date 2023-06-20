@@ -30,6 +30,8 @@ import           Control.Type.Operator
 
 import qualified System.IO                   as IO
 
+-- | Deprecated, use Business
+
 controlTToIO :: Bool -> ControlT IO a -> IO a
 controlTToIO False = controlTToIOWithoutLogs
 controlTToIO True  = controlTToIOWithLogs

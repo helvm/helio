@@ -1,5 +1,8 @@
 # 📅 Revision history for HelVM Common
 
+## 0.1.2.0 -- 2023-06-20
+* Add `BIO`
+
 ## 0.1.1.10 -- 2023-06-19
 * `tee` is deprecated, use `<*>`
 
