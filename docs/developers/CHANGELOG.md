@@ -1,5 +1,8 @@
 # 📅 Revision history for HelVM Common
 
+## 0.1.2.2 -- 2023-06-20
+* Add `MockIO`
+
 ## 0.1.2.0 -- 2023-06-20
 * Add `BIO`
 
