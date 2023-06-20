@@ -21,6 +21,7 @@ import           HelVM.HelIO.Control.Business
 import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.IO.Console
+import           HelVM.HelIO.IO.FileReader
 
 import           HelVM.HelIO.ListLikeExtra
 
@@ -93,6 +94,11 @@ instance ConsoleIO MockIO where
   wPutChar         = mockPutChar
   wPutStr          = mockPutStr
   wLogStr          = mockLogStr
+
+----
+
+instance FileReaderIO (BusinessT MockIO) where
+  wReadFile = pure . toText --FIXME
 
 ----
 
