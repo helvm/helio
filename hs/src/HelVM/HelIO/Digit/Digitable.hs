@@ -7,10 +7,10 @@ import           HelVM.HelIO.Control.Safe
 
 -- | Public functions
 naturalToDL :: (MonadSafe m , Digitable a) => Natural -> m [a]
-naturalToDL = traverse fromDigit . naturalToDigits2
+naturalToDL = traverse fromDigit <$> naturalToDigits2
 
 textToDL :: (MonadSafe m , Digitable a) => Text -> m [a]
-textToDL = stringToDL . toString
+textToDL = stringToDL <$> toString
 
 stringToDL :: (MonadSafe m , Digitable a) => String -> m [a]
 stringToDL s = join <$> traverse charToDL s

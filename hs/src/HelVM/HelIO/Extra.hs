@@ -12,7 +12,7 @@ import qualified Data.Text             as Text
 -- | FilesExtra
 
 readFileTextUtf8 :: MonadIO m => FilePath -> m Text
-readFileTextUtf8 = (pure . decodeUtf8) <=< readFileBS
+readFileTextUtf8 = (pure <$> decodeUtf8) <=< readFileBS
 
 -- | TextExtra
 
@@ -25,7 +25,7 @@ splitOneOf s = Text.split contains where contains c = c `elem` s
 -- | ShowExtra
 
 showP :: Show a => a -> Text
-showP = toText . pShowNoColor
+showP = toText <$> pShowNoColor
 
 showToText :: (Typeable a , Show a) => a -> Text
 showToText a = show a `fromMaybe` (cast a :: Maybe Text)
@@ -33,7 +33,7 @@ showToText a = show a `fromMaybe` (cast a :: Maybe Text)
 -- | CharExtra
 
 genericChr :: Integral a => a -> Char
-genericChr = chr . fromIntegral
+genericChr = chr <$> fromIntegral
 
 -- | MaybeExtra
 
@@ -62,7 +62,7 @@ unfoldrM f = go <=< f where
   go (Just (b, a')) = (b : ) <$> (go <=< f) a'
 
 --unfoldr :: (a ->  Maybe (b, a)) -> a -> [b]
---unfoldr f = runIdentity . unfoldrM (Identity . f)
+--unfoldr f = runIdentity <$> unfoldrM (Identity <$> f)
 
 runParser :: Monad m => Parser a b m -> [a] -> m [b]
 runParser f = go where
@@ -73,7 +73,7 @@ repeatedlyM :: Monad m => Parser a b m -> [a] -> m [b]
 repeatedlyM = runParser
 
 repeatedly :: ([a] -> (b, [a])) -> [a] -> [b]
-repeatedly f = runIdentity . repeatedlyM (Identity . f)
+repeatedly f = runIdentity <$> repeatedlyM (Identity <$> f)
 
 -- | NonEmptyExtra
 
@@ -84,7 +84,7 @@ many1' p = liftA2 (:|) p $ many p
 
 -- | `tee` is deprecated, use `<*>`
 tee :: (a -> b -> c) -> (a -> b) -> a -> c
-tee f1 f2 a = (f1 a . f2) a
+tee f1 f2 a = (f1 a <$> f2) a
 
 type Act s a = s -> Either s a
 type ActM m s a = s -> m (Either s a)

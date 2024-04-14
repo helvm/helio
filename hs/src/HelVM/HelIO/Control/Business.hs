@@ -41,10 +41,10 @@ businessTToIOWithLogs :: BusinessT IO a -> IO a
 businessTToIOWithLogs = safeWithMessagesToIOWithLogs <=< runBusinessT
 
 businessToIO :: Business a -> IO a
-businessToIO = safeToIO . removeLogger
+businessToIO = safeToIO <$> removeLogger
 
 runBusinessT :: BusinessT m a -> m $ SafeWithMessages a
-runBusinessT = runLoggerT . runSafeT
+runBusinessT = runLoggerT <$> runSafeT
 
 runBusiness :: Business a -> SafeWithMessages a
 runBusiness a = runLogger $ runSafe <$> a
@@ -60,13 +60,13 @@ safeWithMessagesToText (safe , messages) = errorsToText messages <> safeToText s
 
 -- | Constructors
 businessT :: Monad m => m a -> BusinessT m a
-businessT = safeT . loggerT
+businessT = safeT <$> loggerT
 
 business :: a -> Business a
-business = logger . pure
+business = logger <$> pure
 
 safeWithMessages :: a -> SafeWithMessages a
-safeWithMessages = withMessages . pure
+safeWithMessages = withMessages <$> pure
 
 -- | Types
 type MonadBusiness m = (MonadLogger m , MonadSafe m)

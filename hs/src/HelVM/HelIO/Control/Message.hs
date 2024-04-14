@@ -4,14 +4,14 @@ import qualified Data.DList as D
 
 -- | Destructors
 errorsToText :: Messages -> Text
-errorsToText = unlines . D.toList
+errorsToText = unlines <$> D.toList
 
 errorsToString :: Messages -> String
-errorsToString = toString . errorsToText
+errorsToString = toString <$> errorsToText
 
 -- | Constructors
 stringToErrors :: String -> Messages
-stringToErrors = D.singleton . toText
+stringToErrors = D.singleton <$> toText
 
 tupleListToMessage :: [MessageTuple] -> Message
 tupleListToMessage xs = mconcat $ tupleToMessage <$> xs

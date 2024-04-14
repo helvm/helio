@@ -45,13 +45,13 @@ loggerIOToIO :: IO (Logger a) -> IO a
 loggerIOToIO a = loggerToIO =<< a
 
 loggerToIO :: Logger a -> IO a
-loggerToIO = pure . removeLogger
+loggerToIO = pure <$> removeLogger
 
 removeLoggerT :: Monad m => LoggerT m a -> m a
 removeLoggerT a = fst <$> runWriterT a
 
 removeLogger :: Logger a -> a
-removeLogger = fst . runWriter
+removeLogger = fst <$> runWriter
 
 runLoggerT :: LoggerT m a -> m (a , Messages)
 runLoggerT = runWriterT
@@ -64,7 +64,7 @@ logsFromLoggerT :: Monad m => LoggerT m a -> m Messages
 logsFromLoggerT a = snd <$> runWriterT a
 
 logsFromLogger :: Logger a -> Messages
-logsFromLogger = snd . runWriter
+logsFromLogger = snd <$> runWriter
 
 -- | Constructors
 loggerT :: Monad m => m a -> LoggerT m a
@@ -78,23 +78,23 @@ withMessages a = (a , D.empty)
 
 -- | Lift
 liftLogger :: MonadLogger m => Logger a -> m a
-liftLogger = writer . runWriter
+liftLogger = writer <$> runWriter
 
 -- | Append Messages
 logMessageTupleList :: MonadLogger m => [MessageTuple] -> m ()
-logMessageTupleList = logMessage . tupleListToMessage
+logMessageTupleList = logMessage <$> tupleListToMessage
 
 logMessageTuple :: MonadLogger m => MessageTuple -> m ()
-logMessageTuple = logMessage . logTupleToMessage
+logMessageTuple = logMessage <$> logTupleToMessage
 
 logTupleToMessage :: MessageTuple -> Message
 logTupleToMessage (k , v) = k <> ": " <> v
 
 logData :: (MonadLogger m , Show a) => a -> m ()
-logData = logMessage . show
+logData = logMessage <$> show
 
 logMessage :: MonadLogger m => Message -> m ()
-logMessage = logMessages . D.singleton
+logMessage = logMessages <$> D.singleton
 
 logMessages :: MonadLogger m => Messages -> m ()
 logMessages = tell

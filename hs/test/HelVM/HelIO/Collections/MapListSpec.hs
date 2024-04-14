@@ -20,7 +20,7 @@ spec = do
           ] $ \(name , list) ->
       it name $ I.toList (fromList list :: MapList Int) `shouldBe` list
 
-  describe "toDescList . fromIntIndexedList" $
+  describe "toDescList <$> fromIntIndexedList" $
     forM_ [ ([(0,0)]       , [(0,0)]      )
           , ([(0,1)]       , [(0,1)]      )
           , ([(1,0)]       , [(1,0)]      )
@@ -32,7 +32,7 @@ spec = do
           , ([(5,2),(3,1)] , [(5,2),(3,1)])
           , ([(3,1),(5,2)] , [(5,2),(3,1)])
           ] $ \(input , output) ->
-      it (show input) $ (toDescList . fromIntIndexedList) input  `shouldBe` output
+      it (show input) $ (toDescList <$> fromIntIndexedList) input  `shouldBe` output
 
   describe "fromIntIndexedList" $ do
     describe "desc" $
@@ -47,18 +47,18 @@ spec = do
             ] $ \(input , output) ->
         describe (show input) $ do
           it "               listFromIntDescList" $                 listFromIntDescList  input `shouldBe` output
-          it "mapListToList . fromIntIndexedList" $ (mapListToList . fromIntIndexedList) input `shouldBe` output
-          it "I.toList      . fromIntIndexedList" $ (I.toList      . fromIntIndexedList) input `shouldBe` output
-          it "LL.toList     . fromIntIndexedList" $ (LL.toList     . fromIntIndexedList) input `shouldBe` output
+          it "mapListToList <$> fromIntIndexedList" $ (mapListToList <$> fromIntIndexedList) input `shouldBe` output
+          it "I.toList      <$> fromIntIndexedList" $ (I.toList      <$> fromIntIndexedList) input `shouldBe` output
+          it "LL.toList     <$> fromIntIndexedList" $ (LL.toList     <$> fromIntIndexedList) input `shouldBe` output
 
     describe "asc" $
       forM_ [ ([(1,1),(2,2)] , [0,1,2]      )
             , ([(3,1),(5,2)] , [0,0,0,1,0,2])
             ] $ \(input , output) ->
         describe (show input) $ do
-          it "mapListToList . fromIntIndexedList" $ (mapListToList . fromIntIndexedList) input `shouldBe` output
-          it "I.toList      . fromIntIndexedList" $ (I.toList      . fromIntIndexedList) input `shouldBe` output
-          it "LL.toList     . fromIntIndexedList" $ (LL.toList     . fromIntIndexedList) input `shouldBe` output
+          it "mapListToList <$> fromIntIndexedList" $ (mapListToList <$> fromIntIndexedList) input `shouldBe` output
+          it "I.toList      <$> fromIntIndexedList" $ (I.toList      <$> fromIntIndexedList) input `shouldBe` output
+          it "LL.toList     <$> fromIntIndexedList" $ (LL.toList     <$> fromIntIndexedList) input `shouldBe` output
 
 listFromIntDescList :: [(Int , Int)] -> [Int]
 listFromIntDescList = listFromDescList

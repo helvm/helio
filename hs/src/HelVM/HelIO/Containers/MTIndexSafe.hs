@@ -11,7 +11,7 @@ import           Prelude                  hiding (break, divMod, drop, fromList,
 
 -- | Index
 naturalIndexSafe :: (MonadSafe m , IndexSafe seq , Num $ Index seq) => seq -> Natural -> m $ Element seq
-naturalIndexSafe l =  indexSafe l . fromIntegral
+naturalIndexSafe l =  indexSafe l <$> fromIntegral
 
 -- | Type Class
 class IndexSafe seq where
@@ -22,8 +22,8 @@ class IndexSafe seq where
   indexSafe  :: MonadSafe m => seq -> Index seq -> m $ Element seq
 
 instance IsSequence seq => IndexSafe seq where
-  findWithDefault e i = fromMaybe e . findMaybe i
+  findWithDefault e i = fromMaybe e <$> findMaybe i
   findMaybe           = flip indexMaybe
-  indexMaybe      l   = rightToMaybe . indexSafe l
+  indexMaybe      l   = rightToMaybe <$> indexSafe l
   findSafe            = flip indexSafe
-  indexSafe       l   = liftMaybeOrError "MTIndexSafe.indexSafe:" . index l
+  indexSafe       l   = liftMaybeOrError "MTIndexSafe.indexSafe:" <$> index l

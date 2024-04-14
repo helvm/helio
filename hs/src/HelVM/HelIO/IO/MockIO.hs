@@ -34,13 +34,13 @@ ioExecMockIOBatch :: BusinessT MockIO () -> IO MockIOData
 ioExecMockIOBatch = ioExecMockIOWithInput ""
 
 ioExecMockIOWithInput :: Text -> BusinessT MockIO () -> IO MockIOData
-ioExecMockIOWithInput i = safeToIO . safeExecMockIOWithInput i
+ioExecMockIOWithInput i = safeToIO <$> safeExecMockIOWithInput i
 
 safeExecMockIOBatch :: BusinessT MockIO () -> Safe MockIOData
 safeExecMockIOBatch = safeExecMockIOWithInput ""
 
 safeExecMockIOWithInput :: Text -> BusinessT MockIO () -> Safe MockIOData
-safeExecMockIOWithInput i = pure . runMockIO i . runBusinessT
+safeExecMockIOWithInput i = pure <$> runMockIO i <$> runBusinessT
 
 execMockIOBatch :: MockIO () -> MockIOData
 execMockIOBatch = execMockIOWithInput ""
@@ -58,10 +58,10 @@ createMockIO :: Text -> MockIOData
 createMockIO i = MockIOData (toString i) "" ""
 
 calculateOutput :: MockIOData -> Text
-calculateOutput = calculateText . output
+calculateOutput = calculateText <$> output
 
 calculateLogged :: MockIOData -> Text
-calculateLogged = calculateText . logged
+calculateLogged = calculateText <$> logged
 
 ----
 
@@ -71,9 +71,9 @@ instance ConsoleIO (BusinessT MockIO) where
   wGetContents     = businessT   mockGetContents
   wGetChar         =             mockGetCharSafe
   wGetLine         =             mockGetLineSafe
-  wPutChar         = businessT . mockPutChar
-  wPutStr          = businessT . mockPutStr
-  wLogStr          = businessT . mockLogStr
+  wPutChar         = businessT <$> mockPutChar
+  wPutStr          = businessT <$> mockPutStr
+  wLogStr          = businessT <$> mockLogStr
 
 instance ConsoleIO (SafeT MockIO) where
   wGetContentsBS   = safeT   mockGetContentsBS
@@ -81,9 +81,9 @@ instance ConsoleIO (SafeT MockIO) where
   wGetContents     = safeT   mockGetContents
   wGetChar         = safeT   mockGetChar
   wGetLine         = safeT   mockGetLine
-  wPutChar         = safeT . mockPutChar
-  wPutStr          = safeT . mockPutStr
-  wLogStr          = safeT . mockLogStr
+  wPutChar         = safeT <$> mockPutChar
+  wPutStr          = safeT <$> mockPutStr
+  wLogStr          = safeT <$> mockLogStr
 
 instance ConsoleIO MockIO where
   wGetContentsBS   = mockGetContentsBS
@@ -98,15 +98,15 @@ instance ConsoleIO MockIO where
 ----
 
 instance FileReaderIO (BusinessT MockIO) where
-  wReadFile = pure . toText --FIXME
+  wReadFile = pure <$> toText --FIXME
 
 ----
 
 mockGetContentsBS :: MonadMockIO m => m LBS.ByteString
-mockGetContentsBS =  fromStrict . encodeUtf8 <$> mockGetContentsText
+mockGetContentsBS =  fromStrict <$> encodeUtf8 <$> mockGetContentsText
 
 mockGetContentsText :: MonadMockIO m => m LT.Text
-mockGetContentsText = fromStrict . toText <$> mockGetContents
+mockGetContentsText = fromStrict <$> toText <$> mockGetContents
 
 mockGetContents :: MonadMockIO m => m String
 mockGetContents = mockGetContents' =<< get where
@@ -136,13 +136,13 @@ mockGetLineSafe = mockGetLine' =<< get where
 
 
 mockPutChar :: Char -> MockIO ()
-mockPutChar = modify . mockDataPutChar
+mockPutChar = modify <$> mockDataPutChar
 
 mockPutStr :: Text -> MockIO ()
-mockPutStr = modify . mockDataPutStr
+mockPutStr = modify <$> mockDataPutStr
 
 mockLogStr :: Text -> MockIO ()
-mockLogStr = modify . mockDataLogStr
+mockLogStr = modify <$> mockDataLogStr
 
 ----
 
@@ -166,10 +166,10 @@ type MonadMockIO m = MonadState MockIOData m
 type MockIO = State MockIOData
 
 calculateText :: String -> Text
-calculateText = Text.reverse . toText
+calculateText = Text.reverse <$> toText
 
 calculateString :: Text -> String
-calculateString =  toString . Text.reverse
+calculateString =  toString <$> Text.reverse
 
 data MockIOData = MockIOData
   { input  :: !String

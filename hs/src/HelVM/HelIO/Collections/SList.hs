@@ -26,11 +26,11 @@ sListEmpty :: SList a
 sListEmpty = SList mempty
 
 sListFromList :: [a] -> SList a
-sListFromList = SList . fromList
+sListFromList = SList <$> fromList
 
 -- | DeConstruction
 sListToList :: SList a -> [a]
-sListToList = toList . unSList
+sListToList = toList <$> unSList
 
 -- | Types
 type SString  = SList Char
@@ -42,16 +42,16 @@ newtype SList a = SList { unSList :: L.Slist a}
 
 -- | Standard instances
 instance Show a => Show (SList a) where
-  show = show . toList
+  show = show <$> toList
 
 instance IsString SString where
-  fromString = SList . L.slist
+  fromString = SList <$> L.slist
 
 instance IsList (SList a) where
   type (Item (SList a)) = a
   toList      = sListToList
   fromList    = sListFromList
-  fromListN n = SList . fromListN n
+  fromListN n = SList <$> fromListN n
 
 -- | MonoFoldable instances
 type instance MT.Element (SList a) = a
@@ -88,7 +88,7 @@ instance S.IsSequence (SList a) where
 -- | ListLike instances
 instance LL.FoldableLL (SList a) a where
 --  foldl  = F.foldl
-  foldl f z t = appEndo (getDual (foldMap (Dual . Endo . flip f) t)) z
+  foldl f z t = appEndo (getDual (foldMap (Dual <$> Endo <$> flip f) t)) z
   foldr  = F.foldr
   foldl1 = F.foldl1
   foldr1 = F.foldr1
@@ -106,7 +106,7 @@ instance LL.ListLike (SList a) a where
   last          = sListLast
   tail          = sListTail
   init          = sListInit
-  null          = L.isEmpty . unSList
+  null          = L.isEmpty <$> unSList
 --  length = genericLength
 --  map           = fmap
   rigidMap = fmap
@@ -115,8 +115,8 @@ instance LL.ListLike (SList a) a where
 --  concat = fold
 --  concatMap = foldMap
 --  rigidConcatMap = concatMap
---  any p = getAny . foldMap (Any . p)
---  all p = getAll . foldMap (All . p)
+--  any p = getAny <$> foldMap (Any <$> p)
+--  all p = getAll <$> foldMap (All <$> p)
 --  maximum = foldr1 max
 --  minimum = foldr1 min
   replicate     = sListReplicate
@@ -127,7 +127,7 @@ instance LL.ListLike (SList a) a where
 --  dropWhile
 --  dropWhileEnd func = foldr (\x xs -> if func x && null xs then empty else cons x xs) empty
 --  span
---  break p = span (not . p)
+--  break p = span (not <$> p)
 --  group = groupBy (==)
 --  inits
 --  tails
@@ -140,11 +140,11 @@ instance LL.ListLike (SList a) a where
 --  notElem i = all (/= i)
   find          = sListFind
 --  filter
---  partition p xs = (filter p xs, filter (not . p) xs)
+--  partition p xs = (filter p xs, filter (not <$> p) xs)
   index         = sListIndex
 --  elemIndex e l = findIndex (== e) l
 --  elemIndices i l = findIndices (== i) l
---  findIndex f = listToMaybe . findIndices f
+--  findIndex f = listToMaybe <$> findIndices f
 --  findIndices
 --  sequence
 --  mapM
@@ -167,7 +167,7 @@ instance LL.ListLike (SList a) a where
 --  groupBy
   sortBy        = sListSortBy
 --  insertBy
-  genericLength = L.genericLength . unSList
+  genericLength = L.genericLength <$> unSList
 --  genericTake
 --  genericDrop
 --  genericSplitAt n l = (genericTake n l, genericDrop n l)
@@ -175,52 +175,52 @@ instance LL.ListLike (SList a) a where
 
 -- | My instances
 instance Default a => MT.InsertDef (SList a) where
-  insertDef i e = sListFromList. MT.insertDef i e . sListToList
+  insertDef i e = sListFromList. MT.insertDef i e <$> sListToList
 
 instance Default a => LL.InsertDef (SList a) a where
-  insertDef i e = sListFromList. LL.insertDef i e . sListToList
+  insertDef i e = sListFromList. LL.insertDef i e <$> sListToList
 
 -- | Internals sList
 sListCons :: a -> SList a -> SList a
-sListCons e = SList . L.cons e . unSList
+sListCons e = SList <$> L.cons e <$> unSList
 
 sListSnoc :: LL.ListLike a (I.Item a) => a -> I.Item a -> a
 sListSnoc l e = l <> LL.singleton e
 
 sListHead :: SList a -> a
-sListHead = L.head . unSList
+sListHead = L.head <$> unSList
 
 sListUncons :: SList a -> Maybe (a, SList a)
-sListUncons l = wrap <$> (L.uncons . unSList) l where
+sListUncons l = wrap <$> (L.uncons <$> unSList) l where
   wrap :: (a , L.Slist a) -> (a , SList a)
   wrap (a , l') = (a , SList l')
 
 sListLast :: SList a -> a
-sListLast = L.last . unSList
+sListLast = L.last <$> unSList
 
 sListTail :: SList a -> SList a
-sListTail = SList . L.tail . unSList
+sListTail = SList <$> L.tail <$> unSList
 
 sListInit :: SList a -> SList a
-sListInit = SList . L.init . unSList
+sListInit = SList <$> L.init <$> unSList
 
 sListReverse :: SList a -> SList a
-sListReverse = SList . L.reverse . unSList
+sListReverse = SList <$> L.reverse <$> unSList
 
 sListIntersperse :: a -> SList a -> SList a
-sListIntersperse e = SList . L.intersperse e . unSList
+sListIntersperse e = SList <$> L.intersperse e <$> unSList
 
 sListReplicate :: Int -> a -> SList a
-sListReplicate e = SList . L.replicate e
+sListReplicate e = SList <$> L.replicate e
 
 sListFind :: (a -> Bool) -> SList a -> Maybe a
-sListFind e = find e . sListToList
+sListFind e = find e <$> sListToList
 
 sListIndex :: SList a -> Int -> a
 sListIndex = flip sListUnsafeAt
 
 sListUnsafeAt :: Int -> SList a -> a
-sListUnsafeAt i = L.unsafeAt i . unSList
+sListUnsafeAt i = L.unsafeAt i <$> unSList
 
 sListSortBy :: (a -> a -> Ordering) -> SList a -> SList a
-sListSortBy f = SList . L.sortBy f . unSList
+sListSortBy f = SList <$> L.sortBy f <$> unSList

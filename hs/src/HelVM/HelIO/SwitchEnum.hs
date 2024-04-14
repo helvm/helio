@@ -8,7 +8,7 @@ bothEnums :: (Bounded e , Enum e) => [e]
 bothEnums = enumFromBool <$> [False , True]
 
 enumFromBool :: (Bounded e , Enum e) => Bool -> e
-enumFromBool = unsafeEnum . fromEnum
+enumFromBool = unsafeEnum <$> fromEnum
 
 generateEnums :: (Bounded e , Enum e) => Int -> [e]
 generateEnums i = unsafeEnum <$> [0 .. (i - 1)]

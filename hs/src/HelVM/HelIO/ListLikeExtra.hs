@@ -8,7 +8,7 @@ import           Prelude                  hiding (break, divMod, drop, fromList,
 
 -- | Construction
 convert :: (ListLike full1 item , ListLike full2 item) => full1 -> full2
-convert = fromList . toList
+convert = fromList <$> toList
 
 maybeToFromList :: ListLike full item => Maybe item -> full
 maybeToFromList (Just e) = singleton e
@@ -26,10 +26,10 @@ top :: (MonadSafe m , ListLike full item) => full -> m item
 top s = appendError "Error for top" $ fst <$> unconsSafe s
 
 unconsSafe :: (MonadSafe m , ListLike full item) => full -> m (item , full)
-unconsSafe = liftMaybeOrError "Empty ListLike for unconsSafe" . uncons
+unconsSafe = liftMaybeOrError "Empty ListLike for unconsSafe" <$> uncons
 
 uncons2Safe :: (MonadSafe m , ListLike full item) => full -> m (item , item , full)
-uncons2Safe = liftMaybeOrError "Empty ListLike for uncons2Safe" . uncons2
+uncons2Safe = liftMaybeOrError "Empty ListLike for uncons2Safe" <$> uncons2
 
 uncons2 :: ListLike full item => full -> Maybe (item, item, full)
 uncons2 = uncons2' <=< uncons where

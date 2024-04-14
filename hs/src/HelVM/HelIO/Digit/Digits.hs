@@ -27,7 +27,7 @@ naturalToDigits2 :: Natural -> [Natural]
 naturalToDigits2 = naturalToDigits 2
 
 naturalToDigits :: Natural -> Natural -> [Natural]
-naturalToDigits base = LL.reverse . unfoldr (modDivMaybe base)
+naturalToDigits base = LL.reverse <$> unfoldr (modDivMaybe base)
 
 modDivMaybe :: Natural -> Natural -> Maybe (Natural , Natural)
 modDivMaybe _    0     = Nothing

@@ -43,10 +43,10 @@ controlTToIOWithLogs :: ControlT IO a -> IO a
 controlTToIOWithLogs = safeWithMessagesToIOWithLogs <=< runControlT
 
 controlToIO :: Control a -> IO a
-controlToIO = safeToIO . removeLogger
+controlToIO = safeToIO <$> removeLogger
 
 runControlT :: ControlT m a -> m $ SafeWithMessages a
-runControlT = runLoggerT . runSafeT
+runControlT = runLoggerT <$> runSafeT
 
 runControl :: Control a -> SafeWithMessages a
 runControl a = runLogger $ runSafe <$> a
@@ -62,13 +62,13 @@ safeWithMessagesToText (safe , messages) = errorsToText messages <> safeToText s
 
 -- | Constructors
 controlT :: Monad m => m a -> ControlT m a
-controlT = safeT . loggerT
+controlT = safeT <$> loggerT
 
 control :: a -> Control a
-control = logger . pure
+control = logger <$> pure
 
 safeWithMessages :: a -> SafeWithMessages a
-safeWithMessages = withMessages . pure
+safeWithMessages = withMessages <$> pure
 
 -- | Types
 type MonadControl m = (MonadLogger m, MonadSafe m)

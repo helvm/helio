@@ -12,7 +12,7 @@ import qualified Data.Sequence         as Seq
 
 -- | Insert a new element
 naturalInsertDef :: (InsertDef seq , Num $ Index seq) => Natural -> Element seq -> seq -> seq
-naturalInsertDef = insertDef . fromIntegral
+naturalInsertDef = insertDef <$> fromIntegral
 
 -- | Type Class
 class InsertDef seq where
@@ -25,7 +25,7 @@ instance Default a => InsertDef [a] where
   insertDef i e (x:xs) = x   : insertDef (i-1) e xs
 
 instance Default a => InsertDef (Seq a) where
-  insertDef i e c = (check . Seq.length) c where
+  insertDef i e c = (check <$> Seq.length) c where
     check l
       | i < l       = Seq.update i e c
       | otherwise   = c <> Seq.replicate (i - l) def |> e

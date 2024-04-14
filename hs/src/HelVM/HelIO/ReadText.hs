@@ -9,19 +9,19 @@ module HelVM.HelIO.ReadText (
 import           HelVM.HelIO.Control.Safe
 
 readTextUnsafe :: Read a => Text -> a
-readTextUnsafe = unsafe . readTextSafe
+readTextUnsafe = unsafe <$> readTextSafe
 
 readTextSafe :: (MonadSafe m , Read a) => Text -> m a
-readTextSafe = appendError <*> (readSafeWithoutError . toString)
+readTextSafe = appendError <*> (readSafeWithoutError <$> toString)
 
 readTextMaybe :: Read a => Text -> Maybe a
-readTextMaybe = readMaybe . toString
+readTextMaybe = readMaybe <$> toString
 
 readUnsafe :: Read a => String -> a
-readUnsafe = unsafe . readSafe
+readUnsafe = unsafe <$> readSafe
 
 readSafe :: (MonadSafe m , Read a) => String -> m a
-readSafe = (appendError . toText) <*> readSafeWithoutError
+readSafe = (appendError <$> toText) <*> readSafeWithoutError
 
 readSafeWithoutError :: (MonadSafe m , Read a) => String -> m a
-readSafeWithoutError = liftEitherError . readEither
+readSafeWithoutError = liftEitherError <$> readEither
