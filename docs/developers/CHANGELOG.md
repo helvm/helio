@@ -1,5 +1,8 @@
 # 📅 Revision history for HelVM Common
 
+## 0.2.0.0 -- 2025-01-24
+* Refactor
+
 ## 0.1.2.5 -- 2025-01-11
 * Update libraries
 

@@ -1,18 +1,18 @@
 module HelVM.HelIO.SequencesExtra where
 
+import           HelVM.HelIO.CartesianProduct
 import           HelVM.HelIO.Control.Safe
-import           HelVM.HelIO.ZipA
 
 import           Control.Type.Operator
 
 import           Data.Default
 import           Data.MonoTraversable
-import           Data.Sequence            ((|>))
+import           Data.Sequence                ((|>))
 import           Data.Sequences
 
-import           Prelude                  hiding (break, divMod, drop, fromList, length, splitAt, swap, uncons)
+import           Prelude                      hiding (break, divMod, drop, fromList, length, splitAt, swap, uncons)
 
-import qualified Data.Sequence            as Seq
+import qualified Data.Sequence                as Seq
 
 -- | Construct a sequence
 maybeToFromList :: (MonoPointed p, Monoid p) => Maybe (Element p) -> p
