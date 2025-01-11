@@ -1,5 +1,8 @@
 # 📅 Revision history for HelVM Common
 
+## 0.1.2.5 -- 2025-01-11
+* Update libraries
+
 ## 0.1.2.4 -- 2024-04-14
 * Fix "This binding for ‘golden’ shadows the existing binding"
 

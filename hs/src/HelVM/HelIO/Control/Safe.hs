@@ -97,7 +97,7 @@ unsafe (Left  a) = (error <$> errorsToText) a
 -- | Constructors
 
 nonEmptyFromList :: MonadSafe m => Text -> [a] -> m $ NonEmpty a
-nonEmptyFromList message = liftSafe <$> maybeToSafe message <$> nonEmpty
+nonEmptyFromList message = liftSafe . maybeToSafe message <$> nonEmpty
 
 maybeOrError :: Show e => e -> Maybe a -> Safe a
 maybeOrError = maybeToSafe <$> show

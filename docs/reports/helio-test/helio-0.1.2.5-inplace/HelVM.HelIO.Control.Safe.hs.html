@@ -116,7 +116,7 @@ span.spaces    { background: white }
 <span class="lineno">   97 </span>-- | Constructors
 <span class="lineno">   98 </span>
 <span class="lineno">   99 </span>nonEmptyFromList :: MonadSafe m =&gt; Text -&gt; [a] -&gt; m $ NonEmpty a
-<span class="lineno">  100 </span><span class="decl"><span class="nottickedoff">nonEmptyFromList message = liftSafe &lt;$&gt; maybeToSafe message &lt;$&gt; nonEmpty</span></span>
+<span class="lineno">  100 </span><span class="decl"><span class="nottickedoff">nonEmptyFromList message = liftSafe . maybeToSafe message &lt;$&gt; nonEmpty</span></span>
 <span class="lineno">  101 </span>
 <span class="lineno">  102 </span>maybeOrError :: Show e =&gt; e -&gt; Maybe a -&gt; Safe a
 <span class="lineno">  103 </span><span class="decl"><span class="nottickedoff">maybeOrError = maybeToSafe &lt;$&gt; show</span></span>

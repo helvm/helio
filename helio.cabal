@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helio
-version:               0.1.2.4
+version:               0.1.2.5
 
 synopsis:              HelIO - HelVM Common Library
 description:           Please see the README on GitHub at <https://github.com/helvm/helio#readme>
@@ -12,7 +12,7 @@ license:               Apache-2.0
 license-file:          docs/license/LICENSE-APACHE
 author:                Kamil Adam
 maintainer:            kamil.adam.zabinski@gmail.com
-copyright:             2020-2024 WriteOnly Developers
+copyright:             2020-2025 WriteOnly Developers
 
 category:              Language
 build-type:            Simple
@@ -33,8 +33,8 @@ flag ghcoptions
 
 common common-options
   build-depends:
-      base                 <  4.19
-    , relude               == 1.1.0.0
+      base                 <  4.21
+    , relude               == 1.2.2.0
   mixins:
       base hiding (Prelude)
     , relude (Relude as Prelude, Relude.Extra, Data.Text)
@@ -99,6 +99,7 @@ common common-options
       -Wunused-packages
       -fprint-potential-instances
       -Werror
+      -fno-warn-unused-packages
 
 library
   import:              common-options
@@ -161,6 +162,7 @@ test-suite helio-test
   hs-source-dirs:      hs/test
   main-is:             Main.hs
   other-modules:
+    Slow
     Spec
 
     HelVM.Expectations
@@ -186,6 +188,8 @@ test-suite helio-test
     , filepath
     , ListLike
     , mtl
+    , stm
+    , time
     , type-operators
 
   build-tool-depends:  hspec-discover:hspec-discover == 2.*

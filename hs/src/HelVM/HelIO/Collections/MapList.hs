@@ -85,7 +85,7 @@ instance {-# OVERLAPPING #-} IndexSafe (MapList a) a where
   indexSafe  l = liftMaybeOrError "MapList.LLIndexSafe: index is not correct" <$> mapListIndexMaybe l
 
 instance InsertDef (MapList a) a where
-  insertDef i e = fromIntMap <$> IntMap.insert i e <$> unMapList
+  insertDef i e = fromIntMap . IntMap.insert i e <$> unMapList
 
 -- | Internal functions
 mapListFindMaybe :: Key -> MapList a -> Maybe a
