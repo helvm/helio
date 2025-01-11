@@ -36,7 +36,7 @@ makeAsciiText28FromList :: (MonadSafe m , ToDigit a) => [a] -> m Text
 makeAsciiText28FromList = makeAsciiText28 <$> fromList
 
 makeAsciiText28 :: (MonadSafe m , ToDigit a) => S.SList a -> m Text
-makeAsciiText28 l = toText <$> S.sListToList <$> makeAsciiString28 l
+makeAsciiText28 l = toText . S.sListToList <$> makeAsciiString28 l
 
 makeAsciiString28FromList :: (MonadSafe m , ToDigit a) => [a] -> m S.SString
 makeAsciiString28FromList = makeAsciiString28 <$> fromList

@@ -40,7 +40,7 @@ safeExecMockIOBatch :: BusinessT MockIO () -> Safe MockIOData
 safeExecMockIOBatch = safeExecMockIOWithInput ""
 
 safeExecMockIOWithInput :: Text -> BusinessT MockIO () -> Safe MockIOData
-safeExecMockIOWithInput i = pure <$> runMockIO i <$> runBusinessT
+safeExecMockIOWithInput i = pure . runMockIO i <$> runBusinessT
 
 execMockIOBatch :: MockIO () -> MockIOData
 execMockIOBatch = execMockIOWithInput ""
@@ -103,10 +103,10 @@ instance FileReaderIO (BusinessT MockIO) where
 ----
 
 mockGetContentsBS :: MonadMockIO m => m LBS.ByteString
-mockGetContentsBS =  fromStrict <$> encodeUtf8 <$> mockGetContentsText
+mockGetContentsBS =  fromStrict . encodeUtf8 <$> mockGetContentsText
 
 mockGetContentsText :: MonadMockIO m => m LT.Text
-mockGetContentsText = fromStrict <$> toText <$> mockGetContents
+mockGetContentsText = fromStrict . toText <$> mockGetContents
 
 mockGetContents :: MonadMockIO m => m String
 mockGetContents = mockGetContents' =<< get where

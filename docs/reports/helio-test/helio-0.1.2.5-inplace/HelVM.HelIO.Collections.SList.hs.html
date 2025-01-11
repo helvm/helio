@@ -55,12 +55,12 @@ span.spaces    { background: white }
 <span class="lineno">   36 </span>type SString  = SList Char
 <span class="lineno">   37 </span>
 <span class="lineno">   38 </span>newtype SList a = SList { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unSList</span></span></span> :: L.Slist a}
-<span class="lineno">   39 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span>)
-<span class="lineno">   40 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Foldable</span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Functor</span></span></span></span> , <span class="decl"><span class="nottickedoff">Traversable</span></span>)
+<span class="lineno">   39 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>)
+<span class="lineno">   40 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Foldable</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Functor</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Traversable</span></span></span></span></span></span></span></span>)
 <span class="lineno">   41 </span>  deriving newtype (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Semigroup</span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Monoid</span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Applicative</span></span></span></span></span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Monad</span></span></span></span></span></span>)
 <span class="lineno">   42 </span>
 <span class="lineno">   43 </span>-- | Standard instances
-<span class="lineno">   44 </span>instance Show a =&gt; Show (SList a) where
+<span class="lineno">   44 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show a =&gt; Show (SList a)</span></span></span></span> where
 <span class="lineno">   45 </span>  <span class="decl"><span class="nottickedoff">show = show &lt;$&gt; toList</span></span>
 <span class="lineno">   46 </span>
 <span class="lineno">   47 </span>instance IsString SString where
@@ -75,7 +75,7 @@ span.spaces    { background: white }
 <span class="lineno">   56 </span>-- | MonoFoldable instances
 <span class="lineno">   57 </span>type instance MT.Element (SList a) = a
 <span class="lineno">   58 </span>
-<span class="lineno">   59 </span>instance MT.MonoFoldable (SList a) where
+<span class="lineno">   59 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MT.MonoFoldable (SList a)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
 <span class="lineno">   60 </span>  <span class="decl"><span class="nottickedoff">headEx = sListHead</span></span>
 <span class="lineno">   61 </span>  <span class="decl"><span class="nottickedoff">lastEx = sListLast</span></span>
 <span class="lineno">   62 </span>
@@ -92,13 +92,13 @@ span.spaces    { background: white }
 <span class="lineno">   73 </span>  <span class="decl"><span class="nottickedoff">find          = sListFind</span></span>
 <span class="lineno">   74 </span>
 <span class="lineno">   75 </span>-- | IsSequence instances
-<span class="lineno">   76 </span>instance MT.MonoPointed (SList a) where
+<span class="lineno">   76 </span>instance <span class="decl"><span class="nottickedoff">MT.MonoPointed (SList a)</span></span> where
 <span class="lineno">   77 </span>
-<span class="lineno">   78 </span>instance MT.MonoFunctor (SList a) where
+<span class="lineno">   78 </span>instance <span class="decl"><span class="nottickedoff">MT.MonoFunctor (SList a)</span></span> where
 <span class="lineno">   79 </span>
-<span class="lineno">   80 </span>instance MT.MonoTraversable (SList a) where
+<span class="lineno">   80 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MT.MonoTraversable (SList a)</span></span></span></span> where
 <span class="lineno">   81 </span>
-<span class="lineno">   82 </span>instance S.IsSequence (SList a) where
+<span class="lineno">   82 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">S.IsSequence (SList a)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
 <span class="lineno">   83 </span>  <span class="decl"><span class="nottickedoff">tailEx        = sListTail</span></span>
 <span class="lineno">   84 </span>  <span class="decl"><span class="nottickedoff">initEx        = sListTail</span></span>
 <span class="lineno">   85 </span>  <span class="decl"><span class="nottickedoff">replicate     = sListReplicate</span></span>
@@ -107,14 +107,14 @@ span.spaces    { background: white }
 <span class="lineno">   88 </span>-- | ListLike instances
 <span class="lineno">   89 </span>instance LL.FoldableLL (SList a) a where
 <span class="lineno">   90 </span>--  foldl  = F.foldl
-<span class="lineno">   91 </span>  <span class="decl"><span class="nottickedoff">foldl f z t = appEndo (getDual (foldMap (Dual &lt;$&gt; Endo &lt;$&gt; flip f) t)) z</span></span>
+<span class="lineno">   91 </span>  <span class="decl"><span class="nottickedoff">foldl f z t = appEndo (getDual (foldMap (Dual . Endo &lt;$&gt; flip f) t)) z</span></span>
 <span class="lineno">   92 </span>  <span class="decl"><span class="nottickedoff">foldr  = F.foldr</span></span>
 <span class="lineno">   93 </span>  <span class="decl"><span class="nottickedoff">foldl1 = F.foldl1</span></span>
 <span class="lineno">   94 </span>  <span class="decl"><span class="nottickedoff">foldr1 = F.foldr1</span></span>
 <span class="lineno">   95 </span>  <span class="decl"><span class="nottickedoff">foldl' = F.foldl'</span></span>
 <span class="lineno">   96 </span>  <span class="decl"><span class="nottickedoff">foldr' = F.foldr'</span></span>
 <span class="lineno">   97 </span>
-<span class="lineno">   98 </span>instance LL.ListLike (SList a) a where
+<span class="lineno">   98 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">LL.ListLike (SList a) a</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
 <span class="lineno">   99 </span>  <span class="decl"><span class="nottickedoff">empty         = mempty</span></span>
 <span class="lineno">  100 </span>  <span class="decl"><span class="nottickedoff">singleton     = pure</span></span>
 <span class="lineno">  101 </span>  <span class="decl"><span class="nottickedoff">cons          = sListCons</span></span>
@@ -201,7 +201,7 @@ span.spaces    { background: white }
 <span class="lineno">  182 </span>
 <span class="lineno">  183 </span>-- | Internals sList
 <span class="lineno">  184 </span>sListCons :: a -&gt; SList a -&gt; SList a
-<span class="lineno">  185 </span><span class="decl"><span class="nottickedoff">sListCons e = SList &lt;$&gt; L.cons e &lt;$&gt; unSList</span></span>
+<span class="lineno">  185 </span><span class="decl"><span class="nottickedoff">sListCons e = SList . L.cons e &lt;$&gt; unSList</span></span>
 <span class="lineno">  186 </span>
 <span class="lineno">  187 </span>sListSnoc :: LL.ListLike a (I.Item a) =&gt; a -&gt; I.Item a -&gt; a
 <span class="lineno">  188 </span><span class="decl"><span class="nottickedoff">sListSnoc l e = l &lt;&gt; LL.singleton e</span></span>
@@ -218,16 +218,16 @@ span.spaces    { background: white }
 <span class="lineno">  199 </span><span class="decl"><span class="nottickedoff">sListLast = L.last &lt;$&gt; unSList</span></span>
 <span class="lineno">  200 </span>
 <span class="lineno">  201 </span>sListTail :: SList a -&gt; SList a
-<span class="lineno">  202 </span><span class="decl"><span class="nottickedoff">sListTail = SList &lt;$&gt; L.tail &lt;$&gt; unSList</span></span>
+<span class="lineno">  202 </span><span class="decl"><span class="nottickedoff">sListTail = SList . L.tail &lt;$&gt; unSList</span></span>
 <span class="lineno">  203 </span>
 <span class="lineno">  204 </span>sListInit :: SList a -&gt; SList a
-<span class="lineno">  205 </span><span class="decl"><span class="nottickedoff">sListInit = SList &lt;$&gt; L.init &lt;$&gt; unSList</span></span>
+<span class="lineno">  205 </span><span class="decl"><span class="nottickedoff">sListInit = SList . L.init &lt;$&gt; unSList</span></span>
 <span class="lineno">  206 </span>
 <span class="lineno">  207 </span>sListReverse :: SList a -&gt; SList a
-<span class="lineno">  208 </span><span class="decl"><span class="nottickedoff">sListReverse = SList &lt;$&gt; L.reverse &lt;$&gt; unSList</span></span>
+<span class="lineno">  208 </span><span class="decl"><span class="nottickedoff">sListReverse = SList . L.reverse &lt;$&gt; unSList</span></span>
 <span class="lineno">  209 </span>
 <span class="lineno">  210 </span>sListIntersperse :: a -&gt; SList a -&gt; SList a
-<span class="lineno">  211 </span><span class="decl"><span class="nottickedoff">sListIntersperse e = SList &lt;$&gt; L.intersperse e &lt;$&gt; unSList</span></span>
+<span class="lineno">  211 </span><span class="decl"><span class="nottickedoff">sListIntersperse e = SList . L.intersperse e &lt;$&gt; unSList</span></span>
 <span class="lineno">  212 </span>
 <span class="lineno">  213 </span>sListReplicate :: Int -&gt; a -&gt; SList a
 <span class="lineno">  214 </span><span class="decl"><span class="nottickedoff">sListReplicate e = SList &lt;$&gt; L.replicate e</span></span>
@@ -242,7 +242,7 @@ span.spaces    { background: white }
 <span class="lineno">  223 </span><span class="decl"><span class="nottickedoff">sListUnsafeAt i = L.unsafeAt i &lt;$&gt; unSList</span></span>
 <span class="lineno">  224 </span>
 <span class="lineno">  225 </span>sListSortBy :: (a -&gt; a -&gt; Ordering) -&gt; SList a -&gt; SList a
-<span class="lineno">  226 </span><span class="decl"><span class="nottickedoff">sListSortBy f = SList &lt;$&gt; L.sortBy f &lt;$&gt; unSList</span></span>
+<span class="lineno">  226 </span><span class="decl"><span class="nottickedoff">sListSortBy f = SList . L.sortBy f &lt;$&gt; unSList</span></span>
 
 </pre>
 </body>

@@ -88,7 +88,7 @@ instance S.IsSequence (SList a) where
 -- | ListLike instances
 instance LL.FoldableLL (SList a) a where
 --  foldl  = F.foldl
-  foldl f z t = appEndo (getDual (foldMap (Dual <$> Endo <$> flip f) t)) z
+  foldl f z t = appEndo (getDual (foldMap (Dual . Endo <$> flip f) t)) z
   foldr  = F.foldr
   foldl1 = F.foldl1
   foldr1 = F.foldr1
@@ -182,7 +182,7 @@ instance Default a => LL.InsertDef (SList a) a where
 
 -- | Internals sList
 sListCons :: a -> SList a -> SList a
-sListCons e = SList <$> L.cons e <$> unSList
+sListCons e = SList . L.cons e <$> unSList
 
 sListSnoc :: LL.ListLike a (I.Item a) => a -> I.Item a -> a
 sListSnoc l e = l <> LL.singleton e
@@ -199,16 +199,16 @@ sListLast :: SList a -> a
 sListLast = L.last <$> unSList
 
 sListTail :: SList a -> SList a
-sListTail = SList <$> L.tail <$> unSList
+sListTail = SList . L.tail <$> unSList
 
 sListInit :: SList a -> SList a
-sListInit = SList <$> L.init <$> unSList
+sListInit = SList . L.init <$> unSList
 
 sListReverse :: SList a -> SList a
-sListReverse = SList <$> L.reverse <$> unSList
+sListReverse = SList . L.reverse <$> unSList
 
 sListIntersperse :: a -> SList a -> SList a
-sListIntersperse e = SList <$> L.intersperse e <$> unSList
+sListIntersperse e = SList . L.intersperse e <$> unSList
 
 sListReplicate :: Int -> a -> SList a
 sListReplicate e = SList <$> L.replicate e
@@ -223,4 +223,4 @@ sListUnsafeAt :: Int -> SList a -> a
 sListUnsafeAt i = L.unsafeAt i <$> unSList
 
 sListSortBy :: (a -> a -> Ordering) -> SList a -> SList a
-sListSortBy f = SList <$> L.sortBy f <$> unSList
+sListSortBy f = SList . L.sortBy f <$> unSList

@@ -74,11 +74,11 @@ span.spaces    { background: white }
 <span class="lineno">   55 </span>type MapString = MapList Char
 <span class="lineno">   56 </span>
 <span class="lineno">   57 </span>newtype MapList a = MapList {<span class="istickedoff"><span class="decl"><span class="istickedoff">unMapList</span></span></span> :: IntMap a}
-<span class="lineno">   58 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span>)
+<span class="lineno">   58 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>)
 <span class="lineno">   59 </span>  deriving newtype (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Semigroup</span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Monoid</span></span></span></span></span></span>)
 <span class="lineno">   60 </span>
 <span class="lineno">   61 </span>-- | Standard instances
-<span class="lineno">   62 </span>instance (Default a , Show a) =&gt; Show (MapList a) where
+<span class="lineno">   62 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">(Default a , Show a) =&gt; Show (MapList a)</span></span></span></span> where
 <span class="lineno">   63 </span>  <span class="decl"><span class="nottickedoff">show = show &lt;$&gt; I.toList</span></span>
 <span class="lineno">   64 </span>
 <span class="lineno">   65 </span>instance IsString MapString where
@@ -91,7 +91,7 @@ span.spaces    { background: white }
 <span class="lineno">   72 </span>  <span class="decl"><span class="nottickedoff">fromListN n = mapListFromList &lt;$&gt; fromListN n</span></span>
 <span class="lineno">   73 </span>
 <span class="lineno">   74 </span>-- | ListLike instances
-<span class="lineno">   75 </span>instance Default a =&gt; LL.FoldableLL (MapList a) a where
+<span class="lineno">   75 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Default a =&gt; LL.FoldableLL (MapList a) a</span></span></span></span></span></span></span></span> where
 <span class="lineno">   76 </span>  <span class="decl"><span class="nottickedoff">foldl f b = IntMap.foldl f b &lt;$&gt; unMapList</span></span>
 <span class="lineno">   77 </span>  <span class="decl"><span class="nottickedoff">foldr f b = IntMap.foldr f b &lt;$&gt; unMapList</span></span>
 <span class="lineno">   78 </span>
@@ -104,7 +104,7 @@ span.spaces    { background: white }
 <span class="lineno">   85 </span>  <span class="decl"><span class="nottickedoff">indexSafe  l = liftMaybeOrError &quot;MapList.LLIndexSafe: index is not correct&quot; &lt;$&gt; mapListIndexMaybe l</span></span>
 <span class="lineno">   86 </span>
 <span class="lineno">   87 </span>instance InsertDef (MapList a) a where
-<span class="lineno">   88 </span>  <span class="decl"><span class="nottickedoff">insertDef i e = fromIntMap &lt;$&gt; IntMap.insert i e &lt;$&gt; unMapList</span></span>
+<span class="lineno">   88 </span>  <span class="decl"><span class="nottickedoff">insertDef i e = fromIntMap . IntMap.insert i e &lt;$&gt; unMapList</span></span>
 <span class="lineno">   89 </span>
 <span class="lineno">   90 </span>-- | Internal functions
 <span class="lineno">   91 </span>mapListFindMaybe :: Key -&gt; MapList a -&gt; Maybe a
