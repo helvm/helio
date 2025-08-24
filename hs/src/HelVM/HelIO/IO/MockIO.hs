@@ -27,7 +27,7 @@ import           HelVM.HelIO.ListLikeExtra
 
 import qualified Data.ByteString.Lazy         as LBS
 
-import           Data.Text                    as Text
+import qualified Data.Text                    as Text
 import qualified Data.Text.Lazy               as LT
 
 ioExecMockIOBatch :: BusinessT MockIO () -> IO MockIOData
