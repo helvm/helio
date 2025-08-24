@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helio
-version:               0.2.0.0
+version:               0.2.0.1
 
 synopsis:              HelIO - HelVM Common Library
 description:           Please see the README on GitHub at <https://github.com/helvm/helio#readme>
@@ -34,7 +34,7 @@ flag ghcoptions
 common common-options
   build-depends:
       base                 <  4.21
-    , relude               == 1.2.2.0
+    , relude               <  1.2.2.2
   mixins:
       base hiding (Prelude)
     , relude (Relude as Prelude, Relude.Extra, Data.Text)
