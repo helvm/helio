@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helio
-version:               0.2.0.3
+version:               0.2.0.4
 
 synopsis:              HelIO - HelVM Common Library
 description:           Please see the README on GitHub at <https://github.com/helvm/helio#readme>
@@ -179,6 +179,10 @@ test-suite helio-test
     , hspec-expectations-pretty-diff
     , hspec-golden
     , hspec-slow
+    , tasty
+    , tasty-golden
+    , tasty-hspec
+    , tasty-hunit
 
     , helio
 
@@ -191,6 +195,7 @@ test-suite helio-test
     , type-operators
 
   build-tool-depends:  hspec-discover:hspec-discover == 2.*
+--  build-tool-depends: tasty-discover:tasty-discover
   ghc-options:
     -threaded
     -rtsopts
