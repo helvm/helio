@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helio
-version:               0.2.0.2
+version:               0.2.0.3
 
 synopsis:              HelIO - HelVM Common Library
 description:           Please see the README on GitHub at <https://github.com/helvm/helio#readme>
@@ -161,7 +161,6 @@ test-suite helio-test
   hs-source-dirs:      hs/test
   main-is:             Main.hs
   other-modules:
-    Slow
     Spec
 
     HelVM.Expectations
