@@ -73,41 +73,45 @@ span.spaces    { background: white }
 <span class="lineno">   54 </span><span class="decl"><span class="nottickedoff">fromJustWithText t Nothing  = error t</span>
 <span class="lineno">   55 </span><span class="spaces"></span><span class="nottickedoff">fromJustWithText _ (Just a) = a</span></span>
 <span class="lineno">   56 </span>
-<span class="lineno">   57 </span>-- | ListExtra
-<span class="lineno">   58 </span>
-<span class="lineno">   59 </span>unfoldrM :: Monad m =&gt; (a -&gt; m (Maybe (b, a))) -&gt; a -&gt; m [b]
-<span class="lineno">   60 </span><span class="decl"><span class="nottickedoff">unfoldrM f = go &lt;=&lt; f where</span>
-<span class="lineno">   61 </span><span class="spaces">  </span><span class="nottickedoff">go  Nothing       = pure []</span>
-<span class="lineno">   62 </span><span class="spaces">  </span><span class="nottickedoff">go (Just (b, a')) = (b : ) &lt;$&gt; (go &lt;=&lt; f) a'</span></span>
-<span class="lineno">   63 </span>
-<span class="lineno">   64 </span>--unfoldr :: (a -&gt;  Maybe (b, a)) -&gt; a -&gt; [b]
-<span class="lineno">   65 </span>--unfoldr f = runIdentity &lt;$&gt; unfoldrM (Identity &lt;$&gt; f)
-<span class="lineno">   66 </span>
-<span class="lineno">   67 </span>runParser :: Monad m =&gt; Parser a b m -&gt; [a] -&gt; m [b]
-<span class="lineno">   68 </span><span class="decl"><span class="nottickedoff">runParser f = go where</span>
-<span class="lineno">   69 </span><span class="spaces">  </span><span class="nottickedoff">go [] = pure []</span>
-<span class="lineno">   70 </span><span class="spaces">  </span><span class="nottickedoff">go a  = (build &lt;=&lt; f) a where build (b, a') = (b : ) &lt;$&gt; go a'</span></span>
-<span class="lineno">   71 </span>
-<span class="lineno">   72 </span>repeatedlyM :: Monad m =&gt; Parser a b m -&gt; [a] -&gt; m [b]
-<span class="lineno">   73 </span><span class="decl"><span class="nottickedoff">repeatedlyM = runParser</span></span>
-<span class="lineno">   74 </span>
-<span class="lineno">   75 </span>repeatedly :: ([a] -&gt; (b, [a])) -&gt; [a] -&gt; [b]
-<span class="lineno">   76 </span><span class="decl"><span class="nottickedoff">repeatedly f = runIdentity &lt;$&gt; repeatedlyM (Identity &lt;$&gt; f)</span></span>
-<span class="lineno">   77 </span>
-<span class="lineno">   78 </span>-- | NonEmptyExtra
-<span class="lineno">   79 </span>
-<span class="lineno">   80 </span>many1' :: (Monad f, Alternative f) =&gt; f a -&gt; f $ NonEmpty a
-<span class="lineno">   81 </span><span class="decl"><span class="nottickedoff">many1' p = liftA2 (:|) p $ many p</span></span>
-<span class="lineno">   82 </span>
-<span class="lineno">   83 </span>-- | Extra
-<span class="lineno">   84 </span>
-<span class="lineno">   85 </span>-- | `tee` is deprecated, use `&lt;*&gt;`
-<span class="lineno">   86 </span>tee :: (a -&gt; b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-<span class="lineno">   87 </span><span class="decl"><span class="nottickedoff">tee f1 f2 a = (f1 a &lt;$&gt; f2) a</span></span>
+<span class="lineno">   57 </span>toMaybe :: Bool -&gt; a -&gt; Maybe a
+<span class="lineno">   58 </span><span class="decl"><span class="nottickedoff">toMaybe False _ = Nothing</span>
+<span class="lineno">   59 </span><span class="spaces"></span><span class="nottickedoff">toMaybe True  x = Just x</span></span>
+<span class="lineno">   60 </span>
+<span class="lineno">   61 </span>-- | ListExtra
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>unfoldrM :: Monad m =&gt; (a -&gt; m (Maybe (b, a))) -&gt; a -&gt; m [b]
+<span class="lineno">   64 </span><span class="decl"><span class="nottickedoff">unfoldrM f = go &lt;=&lt; f where</span>
+<span class="lineno">   65 </span><span class="spaces">  </span><span class="nottickedoff">go  Nothing       = pure []</span>
+<span class="lineno">   66 </span><span class="spaces">  </span><span class="nottickedoff">go (Just (b, a')) = (b : ) &lt;$&gt; (go &lt;=&lt; f) a'</span></span>
+<span class="lineno">   67 </span>
+<span class="lineno">   68 </span>--unfoldr :: (a -&gt;  Maybe (b, a)) -&gt; a -&gt; [b]
+<span class="lineno">   69 </span>--unfoldr f = runIdentity &lt;$&gt; unfoldrM (Identity &lt;$&gt; f)
+<span class="lineno">   70 </span>
+<span class="lineno">   71 </span>runParser :: Monad m =&gt; Parser a b m -&gt; [a] -&gt; m [b]
+<span class="lineno">   72 </span><span class="decl"><span class="nottickedoff">runParser f = go where</span>
+<span class="lineno">   73 </span><span class="spaces">  </span><span class="nottickedoff">go [] = pure []</span>
+<span class="lineno">   74 </span><span class="spaces">  </span><span class="nottickedoff">go a  = (build &lt;=&lt; f) a where build (b, a') = (b : ) &lt;$&gt; go a'</span></span>
+<span class="lineno">   75 </span>
+<span class="lineno">   76 </span>repeatedlyM :: Monad m =&gt; Parser a b m -&gt; [a] -&gt; m [b]
+<span class="lineno">   77 </span><span class="decl"><span class="nottickedoff">repeatedlyM = runParser</span></span>
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>repeatedly :: ([a] -&gt; (b, [a])) -&gt; [a] -&gt; [b]
+<span class="lineno">   80 </span><span class="decl"><span class="nottickedoff">repeatedly f = runIdentity &lt;$&gt; repeatedlyM (Identity &lt;$&gt; f)</span></span>
+<span class="lineno">   81 </span>
+<span class="lineno">   82 </span>-- | NonEmptyExtra
+<span class="lineno">   83 </span>
+<span class="lineno">   84 </span>many1' :: (Monad f, Alternative f) =&gt; f a -&gt; f $ NonEmpty a
+<span class="lineno">   85 </span><span class="decl"><span class="nottickedoff">many1' p = liftA2 (:|) p $ many p</span></span>
+<span class="lineno">   86 </span>
+<span class="lineno">   87 </span>-- | Extra
 <span class="lineno">   88 </span>
-<span class="lineno">   89 </span>type Act s a = s -&gt; Either s a
-<span class="lineno">   90 </span>type ActM m s a = s -&gt; m (Either s a)
-<span class="lineno">   91 </span>type Parser a b m = [a] -&gt; m (b, [a])
+<span class="lineno">   89 </span>-- | `tee` is deprecated, use `&lt;*&gt;`
+<span class="lineno">   90 </span>tee :: (a -&gt; b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
+<span class="lineno">   91 </span><span class="decl"><span class="nottickedoff">tee f1 f2 a = (f1 a &lt;$&gt; f2) a</span></span>
+<span class="lineno">   92 </span>
+<span class="lineno">   93 </span>type Act s a = s -&gt; Either s a
+<span class="lineno">   94 </span>type ActM m s a = s -&gt; m (Either s a)
+<span class="lineno">   95 </span>type Parser a b m = [a] -&gt; m (b, [a])
 
 </pre>
 </body>

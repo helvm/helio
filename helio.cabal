@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helio
-version:               0.2.0.4
+version:               0.2.1.0
 
 synopsis:              HelIO - HelVM Common Library
 description:           Please see the README on GitHub at <https://github.com/helvm/helio#readme>
@@ -149,6 +149,7 @@ library
     , mono-traversable
     , mtl
     , pretty-simple
+    , safe
     , slist
     , text
     , type-operators

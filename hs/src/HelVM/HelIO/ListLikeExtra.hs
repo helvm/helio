@@ -1,10 +1,11 @@
 module HelVM.HelIO.ListLikeExtra where
 
 import           HelVM.HelIO.Control.Safe
+import           HelVM.HelIO.Extra
 
 import           Data.ListLike
 
-import           Prelude                  hiding (break, divMod, drop, fromList, length, splitAt, swap, toList, uncons)
+import           Prelude                  hiding (break, divMod, drop, fromList, init, last, length, null, splitAt, swap, toList, uncons)
 
 -- | Construction
 convert :: (ListLike full1 item , ListLike full2 item) => full1 -> full2
@@ -35,3 +36,9 @@ uncons2 :: ListLike full item => full -> Maybe (item, item, full)
 uncons2 = uncons2' <=< uncons where
   uncons2' (e , l') = uncons2'' <$> uncons l' where
     uncons2'' (e' , l'') = (e , e' , l'')
+
+unsnocSafe :: (MonadSafe m , ListLike full item) => full -> m (full , item)
+unsnocSafe = liftMaybeOrError "Empty ListLike for unsnocSafe" <$> unsnoc
+
+unsnoc :: ListLike full item => full -> Maybe (full, item)
+unsnoc l = toMaybe (null l) (init l , last l)

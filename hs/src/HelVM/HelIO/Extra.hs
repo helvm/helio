@@ -54,6 +54,10 @@ fromJustWithText :: Text -> Maybe a -> a
 fromJustWithText t Nothing  = error t
 fromJustWithText _ (Just a) = a
 
+toMaybe :: Bool -> a -> Maybe a
+toMaybe False _ = Nothing
+toMaybe True  x = Just x
+
 -- | ListExtra
 
 unfoldrM :: Monad m => (a -> m (Maybe (b, a))) -> a -> m [b]
