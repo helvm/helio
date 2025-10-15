@@ -12,4 +12,4 @@ uncons2 = uncons2' <=< uncons where
     uncons2'' (e' , l'') = (e , e' , l'')
 
 unsnoc :: ListLike full item => full -> Maybe (full, item)
-unsnoc l = toMaybe (null l) (init l , last l)
+unsnoc l = toMaybe (not $ null l) (init l , last l)
