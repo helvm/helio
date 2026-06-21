@@ -72,7 +72,7 @@ instance Default a => IsList (MapList a) where
   fromListN n = mapListFromList <$> fromListN n
 
 -- | ListLike instances
-instance Default a => LL.FoldableLL (MapList a) a where
+instance LL.FoldableLL (MapList a) a where
   foldl f b = IntMap.foldl f b <$> unMapList
   foldr f b = IntMap.foldr f b <$> unMapList
 

@@ -91,7 +91,7 @@ span.spaces    { background: white }
 <span class="lineno">   72 </span>  <span class="decl"><span class="nottickedoff">fromListN n = mapListFromList &lt;$&gt; fromListN n</span></span>
 <span class="lineno">   73 </span>
 <span class="lineno">   74 </span>-- | ListLike instances
-<span class="lineno">   75 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Default a =&gt; LL.FoldableLL (MapList a) a</span></span></span></span></span></span></span></span> where
+<span class="lineno">   75 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">LL.FoldableLL (MapList a) a</span></span></span></span></span></span></span></span> where
 <span class="lineno">   76 </span>  <span class="decl"><span class="nottickedoff">foldl f b = IntMap.foldl f b &lt;$&gt; unMapList</span></span>
 <span class="lineno">   77 </span>  <span class="decl"><span class="nottickedoff">foldr f b = IntMap.foldr f b &lt;$&gt; unMapList</span></span>
 <span class="lineno">   78 </span>
