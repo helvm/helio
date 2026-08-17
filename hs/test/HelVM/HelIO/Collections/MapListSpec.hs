@@ -3,6 +3,7 @@ module HelVM.HelIO.Collections.MapListSpec (spec)  where
 import           HelVM.HelIO.Collections.MapList
 
 import qualified Data.ListLike                   as LL
+import qualified Data.MonoTraversable            as MT
 import qualified GHC.Exts                        as I (IsList (..))
 
 import           Test.Hspec                      (Spec, describe, it)
@@ -19,6 +20,13 @@ spec = do
           , ("[3,2,1,0]" , [3,2,1,0])
           ] $ \(name , list) ->
       it name $ I.toList (fromList list :: MapList Int) `shouldBe` list
+
+  describe "MonoTraversable" $ do
+    it "converts to a list" $
+      MT.otoList (fromList [0,1,2] :: MapList Int) `shouldBe` [0,1,2]
+
+    it "maps values while retaining MapList" $
+      (MT.omap (+ 1) (fromList [0,1,2] :: MapList Int) :: MapList Int) `shouldBe` fromList [1,2,3]
 
   describe "toDescList <$> fromIntIndexedList" $
     forM_ [ ([(0,0)]       , [(0,0)]      )

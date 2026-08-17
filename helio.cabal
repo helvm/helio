@@ -191,6 +191,7 @@ test-suite helio-test
     , dlist
     , filepath
     , ListLike
+    , mono-traversable
     , mtl
     , stm
     , time

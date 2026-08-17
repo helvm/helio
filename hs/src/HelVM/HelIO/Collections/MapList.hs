@@ -1,16 +1,25 @@
+{-# LANGUAGE DeriveTraversable #-}
 module HelVM.HelIO.Collections.MapList where
 
-import           HelVM.HelIO.Containers.LLIndexSafe
-import           HelVM.HelIO.Containers.LLInsertDef
+import qualified HelVM.HelIO.Containers.LLIndexSafe as LL
+import qualified HelVM.HelIO.Containers.LLInsertDef as LL
+
+import qualified HelVM.HelIO.Containers.MTIndexSafe as MT
+import qualified HelVM.HelIO.Containers.MTInsertDef as MT
+
 import           HelVM.HelIO.Control.Safe
 
 import           Control.Monad.Extra
 
 import           Data.Default
+import           Data.Sequences                     (SemiSequence (..))
 
 import qualified Data.IntMap                        as IntMap
 import qualified Data.List.Index                    as List
 import qualified Data.ListLike                      as LL
+import qualified Data.MonoTraversable               as MT
+import qualified Data.Sequences                     as S
+
 import qualified GHC.Exts                           as I (IsList (..))
 import qualified Text.Show
 
@@ -56,6 +65,7 @@ type MapString = MapList Char
 
 newtype MapList a = MapList {unMapList :: IntMap a}
   deriving stock (Eq , Ord, Read)
+  deriving stock (Foldable , Functor , Traversable)
   deriving newtype (Semigroup , Monoid)
 
 -- | Standard instances
@@ -71,20 +81,50 @@ instance Default a => IsList (MapList a) where
   fromList    = mapListFromList
   fromListN n = mapListFromList <$> fromListN n
 
+-- | MonoTraversable instances
+type instance MT.Element (MapList a) = a
+
+instance MT.MonoFoldable (MapList a) where
+
+instance MT.MonoFunctor (MapList a) where
+
+instance MT.MonoTraversable (MapList a) where
+
+instance MT.GrowingAppend (MapList a) where
+
+instance S.SemiSequence (MapList a) where
+  type Index (MapList a) = Int
+  cons e = fromIntMap . IntMap.insert 0 e . IntMap.mapKeysMonotonic (+ 1) . unMapList
+  snoc l e = fromIntMap $ IntMap.insert (nextKey l) e (unMapList l)
+  reverse l = fromIntMap $ IntMap.mapKeys (largestKey l -) (unMapList l)
+  sortBy f l = fromIntMap $ IntMap.fromDistinctAscList $ zip (IntMap.keys m) (Prelude.sortBy f $ IntMap.elems m) where m = unMapList l
+  intersperse e = mapListFromList . Prelude.intersperse e . IntMap.elems . unMapList
+  find f = Prelude.find f . IntMap.elems . unMapList
+
 -- | ListLike instances
 instance LL.FoldableLL (MapList a) a where
   foldl f b = IntMap.foldl f b <$> unMapList
   foldr f b = IntMap.foldr f b <$> unMapList
 
 -- | My instances
-instance {-# OVERLAPPING #-} IndexSafe (MapList a) a where
+instance {-# OVERLAPPING #-} LL.IndexSafe (MapList a) a where
   findWithDefault e i = IntMap.findWithDefault e i <$> unMapList
   findMaybe    = mapListFindMaybe
   indexMaybe   = mapListIndexMaybe
   findSafe   i = liftMaybeOrError "MapList.findSafe: index is not correct" <$> mapListFindMaybe i
   indexSafe  l = liftMaybeOrError "MapList.LLIndexSafe: index is not correct" <$> mapListIndexMaybe l
 
-instance InsertDef (MapList a) a where
+instance {-# OVERLAPPING #-} MT.IndexSafe (MapList a) where
+  findWithDefault e i = IntMap.findWithDefault e i <$> unMapList
+  findMaybe    = mapListFindMaybe
+  indexMaybe   = mapListIndexMaybe
+  findSafe   i = liftMaybeOrError "MapList.findSafe: index is not correct" <$> mapListFindMaybe i
+  indexSafe  l = liftMaybeOrError "MapList.MTIndexSafe: index is not correct" <$> mapListIndexMaybe l
+
+instance LL.InsertDef (MapList a) a where
+  insertDef i e = fromIntMap . IntMap.insert i e <$> unMapList
+
+instance MT.InsertDef (MapList a) where
   insertDef i e = fromIntMap . IntMap.insert i e <$> unMapList
 
 -- | Internal functions
@@ -93,3 +133,9 @@ mapListFindMaybe  i   = IntMap.lookup i <$> unMapList
 
 mapListIndexMaybe :: MapList a -> Key -> Maybe a
 mapListIndexMaybe l i = unMapList l IntMap.!? i
+
+nextKey :: MapList a -> Key
+nextKey = maybe 0 ((+ 1) . fst) . IntMap.lookupMax . unMapList
+
+largestKey :: MapList a -> Key
+largestKey = maybe 0 fst . IntMap.lookupMax . unMapList
