@@ -4,6 +4,7 @@ import           HelVM.HelIO.Collections.MapList
 
 import qualified Data.ListLike                   as LL
 import qualified Data.MonoTraversable            as MT
+import qualified Data.Sequences                  as S
 import qualified GHC.Exts                        as I (IsList (..))
 
 import           Test.Hspec                      (Spec, describe, it)
@@ -27,6 +28,10 @@ spec = do
 
     it "maps values while retaining MapList" $
       (MT.omap (+ 1) (fromList [0,1,2] :: MapList Int) :: MapList Int) `shouldBe` fromList [1,2,3]
+
+  describe "IsSequence" $
+    it "unconses the first value" $
+      S.uncons (fromList [0,1,2] :: MapList Int) `shouldBe` Just (0, fromList [1,2])
 
   describe "toDescList <$> fromIntIndexedList" $
     forM_ [ ([(0,0)]       , [(0,0)]      )

@@ -12,7 +12,7 @@ import           HelVM.HelIO.Control.Safe
 import           Control.Monad.Extra
 
 import           Data.Default
-import           Data.Sequences                     (SemiSequence (..))
+import           Data.Sequences                     (IsSequence (..), SemiSequence (..))
 
 import qualified Data.IntMap                        as IntMap
 import qualified Data.List.Index                    as List
@@ -92,6 +92,9 @@ instance MT.MonoTraversable (MapList a) where
 
 instance MT.GrowingAppend (MapList a) where
 
+instance MT.MonoPointed (MapList a) where
+  opoint = mapListFromList . pure
+
 instance S.SemiSequence (MapList a) where
   type Index (MapList a) = Int
   cons e = fromIntMap . IntMap.insert 0 e . IntMap.mapKeysMonotonic (+ 1) . unMapList
@@ -100,6 +103,12 @@ instance S.SemiSequence (MapList a) where
   sortBy f l = fromIntMap $ IntMap.fromDistinctAscList $ zip (IntMap.keys m) (Prelude.sortBy f $ IntMap.elems m) where m = unMapList l
   intersperse e = mapListFromList . Prelude.intersperse e . IntMap.elems . unMapList
   find f = Prelude.find f . IntMap.elems . unMapList
+
+instance S.IsSequence (MapList a) where
+  tailEx = mapListTail
+  initEx = fromIntMap . IntMap.deleteMax . unMapList
+  replicate n = mapListFromList . Prelude.replicate n
+  uncons l = (, mapListTail l) <$> mapListFindMaybe 0 l
 
 -- | ListLike instances
 instance LL.FoldableLL (MapList a) a where
@@ -139,3 +148,6 @@ nextKey = maybe 0 ((+ 1) . fst) . IntMap.lookupMax . unMapList
 
 largestKey :: MapList a -> Key
 largestKey = maybe 0 fst . IntMap.lookupMax . unMapList
+
+mapListTail :: MapList a -> MapList a
+mapListTail = fromIntMap . IntMap.mapKeysMonotonic (subtract 1) . IntMap.delete 0 . unMapList
