@@ -13,18 +13,36 @@ naturalIndexSafe l =  indexSafe l <$> fromIntegral
 
 -- | Type Class
 class IndexSafe full item | full -> item where
-  findWithDefault :: item -> Int -> full -> item
-  findMaybe  :: Int -> full -> Maybe item
+  indexSafe :: MonadSafe m => full -> Int -> m item
+  indexSafe l = liftMaybeOrError "LLTIndexSafe.indexSafe:" . indexMaybe l
+
   indexMaybe :: full -> Int -> Maybe item
-  findSafe   :: MonadSafe m => Int -> full -> m item
-  indexSafe  :: MonadSafe m => full -> Int -> m item
+  indexMaybe l = rightToMaybe <$> indexSafe l
+
+  atSafe :: MonadSafe m => Int -> full -> m item
+  atSafe = flip indexSafe
+
+  atMaybe :: Int -> full -> Maybe item
+  atMaybe = flip indexMaybe
+
+  atWithDefault :: item -> Int -> full -> item
+  atWithDefault e i = fromMaybe e <$> findMaybe i
+
+  findSafe :: MonadSafe m => Int -> full -> m item
+  findSafe = atSafe
+
+  findMaybe :: Int -> full -> Maybe item
+  findMaybe = atMaybe
+
+  findWithDefault :: item -> Int -> full -> item
+  findWithDefault = atWithDefault
+
+{-# DEPRECATED findSafe "Use `atSafe`" #-}
+{-# DEPRECATED findMaybe "Use `atMaybe`" #-}
+{-# DEPRECATED findWithDefault "Use `atWithDefault`" #-}
 
 instance ListLike full item => IndexSafe full item where
-  findWithDefault e i = fromMaybe e <$> findMaybe i
-  findMaybe           = flip indexMaybe
-  indexMaybe      l   = rightToMaybe <$> indexSafe l
-  findSafe            = flip indexSafe
-  indexSafe           = indexSafeLL
+  indexSafe = indexSafeLL
 
 -- | Internal functions
 indexSafeLL :: (MonadSafe m , ListLike full item) => full -> Int -> m item

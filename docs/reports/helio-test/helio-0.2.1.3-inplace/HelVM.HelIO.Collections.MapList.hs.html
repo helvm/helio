@@ -135,14 +135,14 @@ span.spaces    { background: white }
 <span class="lineno">  116 </span>  <span class="decl"><span class="nottickedoff">foldr f b = IntMap.foldr f b &lt;$&gt; unMapList</span></span>
 <span class="lineno">  117 </span>
 <span class="lineno">  118 </span>-- | My instances
-<span class="lineno">  119 </span>instance {-# OVERLAPPING #-} LL.IndexSafe (MapList a) a where
+<span class="lineno">  119 </span>instance {-# OVERLAPPING #-} <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">LL.IndexSafe (MapList a) a</span></span></span></span></span></span> where
 <span class="lineno">  120 </span>  <span class="decl"><span class="nottickedoff">findWithDefault e i = IntMap.findWithDefault e i &lt;$&gt; unMapList</span></span>
 <span class="lineno">  121 </span>  <span class="decl"><span class="nottickedoff">findMaybe    = mapListFindMaybe</span></span>
 <span class="lineno">  122 </span>  <span class="decl"><span class="nottickedoff">indexMaybe   = mapListIndexMaybe</span></span>
 <span class="lineno">  123 </span>  <span class="decl"><span class="nottickedoff">findSafe   i = liftMaybeOrError &quot;MapList.findSafe: index is not correct&quot; &lt;$&gt; mapListFindMaybe i</span></span>
 <span class="lineno">  124 </span>  <span class="decl"><span class="nottickedoff">indexSafe  l = liftMaybeOrError &quot;MapList.LLIndexSafe: index is not correct&quot; &lt;$&gt; mapListIndexMaybe l</span></span>
 <span class="lineno">  125 </span>
-<span class="lineno">  126 </span>instance {-# OVERLAPPING #-} MT.IndexSafe (MapList a) where
+<span class="lineno">  126 </span>instance {-# OVERLAPPING #-} <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MT.IndexSafe (MapList a)</span></span></span></span></span></span> where
 <span class="lineno">  127 </span>  <span class="decl"><span class="nottickedoff">findWithDefault e i = IntMap.findWithDefault e i &lt;$&gt; unMapList</span></span>
 <span class="lineno">  128 </span>  <span class="decl"><span class="nottickedoff">findMaybe    = mapListFindMaybe</span></span>
 <span class="lineno">  129 </span>  <span class="decl"><span class="nottickedoff">indexMaybe   = mapListIndexMaybe</span></span>
