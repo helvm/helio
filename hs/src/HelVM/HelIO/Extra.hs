@@ -11,6 +11,9 @@ import qualified Data.Text             as Text
 
 -- | FilesExtra
 
+readFileLTextUtf8 :: MonadIO m => FilePath -> m LText
+readFileLTextUtf8 = (pure <$> decodeUtf8) <=< readFileLBS
+
 readFileTextUtf8 :: MonadIO m => FilePath -> m Text
 readFileTextUtf8 = (pure <$> decodeUtf8) <=< readFileBS
 
